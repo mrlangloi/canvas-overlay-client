@@ -2,10 +2,15 @@
 
 function dragElement(elmnt) {
 
-  let pos1 = pos2 = pos3 = pos4 = 0;
+  let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-  /* move the DIV from anywhere inside the DIV:*/
-  elmnt.onmousedown = dragMouseDown;
+  if (document.getElementById(elmnt.id)) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+  }
 
   function dragMouseDown(e) {
     e = e || window.event;
@@ -37,3 +42,5 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+export default dragElement;

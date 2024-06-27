@@ -11,3 +11,11 @@ body {
   padding: 0;
   background-color: #36454f;
 }
+
+.media-card {
+  position: absolute;
+}
+
+.media-card:hover {
+  border: 1px solid white;
+}
