@@ -20,3 +20,7 @@ body {
 .media-card:hover {
   border: 1px solid white;
 }
+
+.active {
+  border: 1px solid teal;
+}

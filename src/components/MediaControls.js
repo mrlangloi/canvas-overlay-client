@@ -11,7 +11,21 @@ function MediaControls(props) {
     setPosY,
     rotation,
     setRotation,
+    scale,
+    setScale,
+    opacity,
+    setOpacity,
+    zIndex,
+    setZIndex,
+    imgSrc,
+    setImgSrc,
   } = props;
+
+  function handleImageSourceChange(e) {
+    setImgSrc(e.target.value);
+    const imgElement = activeElement.querySelector('img');
+    imgElement.src = e.target.value;
+  }
 
   function handlePosXChange(e) {
     setPosX(e.target.value);
@@ -28,55 +42,75 @@ function MediaControls(props) {
     activeElement.style.rotate = `${e.target.value}deg`;
   }
 
+  function handleScaleChange(e) {
+    setScale(e.target.value / 100);
+    activeElement.style.scale = `${e.target.value / 100}`;
+  }
 
-  // if (!activeElement) {
-  //   return (
-  //     <div className="media-control">
-  //       <div className="media-control-header">
-  //         <p>Media Control</p>
-  //       </div>
+  function handleOpacityChange(e) {
+    setOpacity(e.target.value);
+    activeElement.style.opacity = `${e.target.value / 100}`;
+  }
 
-  //       <div className="media-control-body">
-  //         <p>Select a media card to adjust its properties</p>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  function handleZIndexChange(e) {
+    setZIndex(e.target.value);
+    activeElement.style.zIndex = e.target.value;
+  }
+
+  if (!activeElement) {
+    return (
+      <div className="media-control">
+        <div className="media-control-header">
+          <p>Media Control</p>
+        </div>
+
+        <div className="media-control-body">
+          <p>Select a media card to adjust its properties</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="media-control">
       <div className="media-control-header">
-        {/* <p>{name}</p> */}
+        <p>{activeElement.id}</p>
       </div>
 
       <div className="media-control-body">
-        <div className="media-control-body-pos">
+        <div className="imageSource">
+          <input type="text" className="text-input" id="image-source-input" value={imgSrc} onChange={handleImageSourceChange} />
+        </div>
+
+        <div className="position">
           <p>Pos-X:</p>
-          <input type="number" value={posX} className="number-input" onChange={handlePosXChange} />
+          <input type="number" className="number-input" value={posX} onChange={handlePosXChange} />
           <p>Pos-Y:</p>
-          <input type="number" value={posY} className="number-input" onChange={handlePosYChange} />
+          <input type="number" className="number-input" value={posY} onChange={handlePosYChange} />
         </div>
 
-        <div className="media-control-body-rotate">
+        <div className="rotate">
           <p>Rotation:</p>
-          <input type="range" min="-180" max="180" value={rotation} id="rotate-slider" onChange={handleRotationChange} />
-          <input type="number" value={rotation} id="rotate-input" onChange={handleRotationChange} />
+          <input type="range" className="range-slider" id="rotate-slider" min="-180" max="180" value={rotation} onChange={handleRotationChange} />
+          <input type="number" className="number-input" id="rotate-input" value={rotation} onChange={handleRotationChange} />
         </div>
 
-        {/* <div className="media-control-body-scale">
+        <div className="scale">
           <p>Scale:</p>
-          <input type="range" min="1" max="200" value={element.scale * 100 || "100"} id="scale-slider" />
+          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={Math.round(scale * 100)} onChange={handleScaleChange} />
+          <input type="number" className="number-input" id="scale-input" value={Math.round(scale * 100)} onChange={handleScaleChange} />
         </div>
 
-        <div className="media-control-body-opacity">
+        <div className="opacity">
           <p>Opacity:</p>
-          <input type="range" min="0" max="100" value={element.opacity || "100"} id="opacity-slider" />
+          <input type="range" className="range-slider" id="opacity-slider" min="0" max="100" value={opacity} onChange={handleOpacityChange} />
+          <input type="number" className="number-input" id="opacity-input" value={opacity} onChange={handleOpacityChange} />
         </div>
 
-        <div className="media-control-body-zindex">
+        <div className="zindex">
           <p>Z-Index:</p>
-          <input type="number" value={element.zindex || "0"} className="number-input" />
-        </div> */}
+          <input type="number" className="number-input" value={zIndex} onChange={handleZIndexChange} />
+        </div>
 
       </div>
 

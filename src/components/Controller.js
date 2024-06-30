@@ -23,20 +23,28 @@ function Controller() {
   const [posX, setPosX] = useState(0)
   const [posY, setPosY] = useState(0)
   const [rotation, setRotation] = useState(0)
+  const [scale, setScale] = useState(1)
+  const [opacity, setOpacity] = useState(100)
+  const [zIndex, setZIndex] = useState(0)
+  const [imgSrc, setImgSrc] = useState("https://via.placeholder.com/150")
 
   const [activeElement, setActiveElement] = useState(null)
 
   const listOfRefs = useRef([])
 
+
+  // everytime activeElement changes, update the position and rotation
   useEffect(() => {
     if (!activeElement) return;
 
     setPosX(parseInt(activeElement.style.left));
     setPosY(parseInt(activeElement.style.top));
     setRotation(parseInt(activeElement.style.rotate));
+
   }, [activeElement])
 
 
+  // add element to the list of references
   function addToRefs(element) {
     if (element && !listOfRefs.current.includes(element)) {
 
@@ -61,6 +69,14 @@ function Controller() {
         setPosY={setPosY}
         rotation={rotation}
         setRotation={setRotation}
+        scale={scale}
+        setScale={setScale}
+        opacity={opacity}
+        setOpacity={setOpacity}
+        zIndex={zIndex}
+        setZIndex={setZIndex}
+        imgSrc={imgSrc}
+        setImgSrc={setImgSrc}
       />
 
       {
@@ -69,6 +85,7 @@ function Controller() {
       <MediaCard 
         id={1} 
         addToRefs={addToRefs}
+        activeElement={activeElement}
         setActiveElement={setActiveElement} 
         setPosX={setPosX} 
         setPosY={setPosY}
@@ -77,6 +94,7 @@ function Controller() {
       <MediaCard 
         id={2} 
         addToRefs={addToRefs}
+        activeElement={activeElement}
         setActiveElement={setActiveElement} 
         setPosX={setPosX} 
         setPosY={setPosY} 

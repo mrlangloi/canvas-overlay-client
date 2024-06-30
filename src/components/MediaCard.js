@@ -5,13 +5,15 @@ import React, { useEffect, useRef } from 'react';
 
 function MediaCard(props) {
 
-  const { id, addToRefs, setActiveElement, setPosX, setPosY } = props;
+  const { id, addToRefs, activeElement, setActiveElement, setPosX, setPosY, zIndex } = props;
 
-  const src = "https://via.placeholder.com/150";
   const text = "placeholder text";
+  const imgSrc = "https://via.placeholder.com/150";
 
   const dragRef = useRef(null);
 
+  // source: https://www.w3schools.com/howto/howto_js_draggable.asp
+  // makes the element draggable
   function dragElement(element) {
 
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -51,7 +53,7 @@ function MediaCard(props) {
     }
   }
 
-
+  // when the component mounts, make the element draggable, add it to the list of references, and set it as the active element
   useEffect(() => {
     if (dragRef.current) {
       dragElement(dragRef.current);
@@ -62,14 +64,14 @@ function MediaCard(props) {
 
   return (
     <div 
-      className="media-card" 
+      className={activeElement === dragRef.current ? "media-card active" : "media-card"} 
       id={id}
       ref={dragRef} 
-      style={{top: `0px`, left: `0px`, rotate: `0deg`}}
+      style={{top: `100px`, left: `400px`, rotate: `0deg`, scale: `1`, opacity: `100`, zIndex: `0`}}
       onMouseDown={() => {setActiveElement(dragRef.current); console.log(dragRef.current)}}
     >
       <p>{text}</p>
-      <img src={src} alt="placeholder" />
+      <img src={imgSrc} alt="placeholder" width="200" />
       <p>{text}</p>
     </div>
   )
