@@ -5,10 +5,11 @@ import React, { useEffect, useRef } from 'react';
 
 function MediaCard(props) {
 
-  const { id, setActiveElement, setPosX, setPosY, rotation } = props;
+  const { id, addToRefs, setActiveElement, setPosX, setPosY } = props;
 
   const src = "https://via.placeholder.com/150";
   const text = "placeholder text";
+
   const dragRef = useRef(null);
 
   function dragElement(element) {
@@ -54,16 +55,18 @@ function MediaCard(props) {
   useEffect(() => {
     if (dragRef.current) {
       dragElement(dragRef.current);
-      setActiveElement(id);
+      addToRefs(dragRef.current);
+      setActiveElement(dragRef.current);
     }
   }, []);
 
   return (
     <div 
       className="media-card" 
+      id={id}
       ref={dragRef} 
-      style={{top: 0 + "px", left: 0 + "px", transform: `rotate(${rotation}deg)`}}
-      onMouseDown={() => {setActiveElement(id); console.log(id)}}
+      style={{top: `0px`, left: `0px`, rotate: `0deg`}}
+      onMouseDown={() => {setActiveElement(dragRef.current); console.log(dragRef.current)}}
     >
       <p>{text}</p>
       <img src={src} alt="placeholder" />

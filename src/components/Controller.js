@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Layers from './Layers';
 import MediaCard from './MediaCard';
 import MediaControls from './MediaControls';
@@ -26,6 +26,24 @@ function Controller() {
 
   const [activeElement, setActiveElement] = useState(null)
 
+  const listOfRefs = useRef([])
+
+  useEffect(() => {
+    if (!activeElement) return;
+
+    setPosX(parseInt(activeElement.style.left));
+    setPosY(parseInt(activeElement.style.top));
+    setRotation(parseInt(activeElement.style.rotate));
+  }, [activeElement])
+
+
+  function addToRefs(element) {
+    if (element && !listOfRefs.current.includes(element)) {
+
+      listOfRefs.current.push(element)
+      console.log(listOfRefs.current)
+    }
+  }
 
   return (
     <div className="controller">
@@ -45,20 +63,23 @@ function Controller() {
         setRotation={setRotation}
       />
 
+      {
+
+      }
       <MediaCard 
         id={1} 
+        addToRefs={addToRefs}
         setActiveElement={setActiveElement} 
         setPosX={setPosX} 
-        setPosY={setPosY} 
-        rotation={rotation}
+        setPosY={setPosY}
       />
 
       <MediaCard 
         id={2} 
+        addToRefs={addToRefs}
         setActiveElement={setActiveElement} 
         setPosX={setPosX} 
         setPosY={setPosY} 
-        rotation={rotation}
       />
 
     </div>

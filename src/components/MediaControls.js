@@ -15,14 +15,17 @@ function MediaControls(props) {
 
   function handlePosXChange(e) {
     setPosX(e.target.value);
+    activeElement.style.left = `${e.target.value}px`;
   }
 
   function handlePosYChange(e) {
     setPosY(e.target.value);
+    activeElement.style.top = `${e.target.value}px`;
   }
 
   function handleRotationChange(e) {
     setRotation(e.target.value);
+    activeElement.style.rotate = `${e.target.value}deg`;
   }
 
 
@@ -57,6 +60,7 @@ function MediaControls(props) {
         <div className="media-control-body-rotate">
           <p>Rotation:</p>
           <input type="range" min="-180" max="180" value={rotation} id="rotate-slider" onChange={handleRotationChange} />
+          <input type="number" value={rotation} id="rotate-input" onChange={handleRotationChange} />
         </div>
 
         {/* <div className="media-control-body-scale">
