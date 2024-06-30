@@ -16,14 +16,14 @@ function Controller() {
     posY: 0,
     rotate: 0,
     scale: 1,
-    opacity: 100,
+    opacity: 1,
     zindex: 0
   }
 
   const [posX, setPosX] = useState(0)
   const [posY, setPosY] = useState(0)
   const [rotation, setRotation] = useState(0)
-  const [scale, setScale] = useState(1)
+  const [scale, setScale] = useState(100)
   const [opacity, setOpacity] = useState(100)
   const [zIndex, setZIndex] = useState(0)
   const [imgSrc, setImgSrc] = useState("https://via.placeholder.com/150")
@@ -37,9 +37,13 @@ function Controller() {
   useEffect(() => {
     if (!activeElement) return;
 
+    setImgSrc(activeElement.querySelector('img').src);
     setPosX(parseInt(activeElement.style.left));
     setPosY(parseInt(activeElement.style.top));
     setRotation(parseInt(activeElement.style.rotate));
+    setScale(Math.round(parseFloat(activeElement.style.scale) * 100));
+    setOpacity(Math.round(parseFloat(activeElement.style.opacity) * 100));
+    setZIndex(parseInt(activeElement.style.zIndex));
 
   }, [activeElement])
 
@@ -79,9 +83,6 @@ function Controller() {
         setImgSrc={setImgSrc}
       />
 
-      {
-
-      }
       <MediaCard 
         id={1} 
         addToRefs={addToRefs}

@@ -43,7 +43,7 @@ function MediaControls(props) {
   }
 
   function handleScaleChange(e) {
-    setScale(e.target.value / 100);
+    setScale(e.target.value);
     activeElement.style.scale = `${e.target.value / 100}`;
   }
 
@@ -97,8 +97,8 @@ function MediaControls(props) {
 
         <div className="scale">
           <p>Scale:</p>
-          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={Math.round(scale * 100)} onChange={handleScaleChange} />
-          <input type="number" className="number-input" id="scale-input" value={Math.round(scale * 100)} onChange={handleScaleChange} />
+          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={scale} onChange={handleScaleChange} />
+          <input type="number" className="number-input" id="scale-input" value={scale} onChange={handleScaleChange} />
         </div>
 
         <div className="opacity">

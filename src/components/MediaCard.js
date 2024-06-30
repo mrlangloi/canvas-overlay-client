@@ -7,8 +7,8 @@ function MediaCard(props) {
 
   const { id, addToRefs, activeElement, setActiveElement, setPosX, setPosY, zIndex } = props;
 
-  const text = "placeholder text";
-  const imgSrc = "https://via.placeholder.com/150";
+  const text = "e";
+  const imgSrc = "https://via.placeholder.com/50";
 
   const dragRef = useRef(null);
 
@@ -67,12 +67,11 @@ function MediaCard(props) {
       className={activeElement === dragRef.current ? "media-card active" : "media-card"} 
       id={id}
       ref={dragRef} 
-      style={{top: `100px`, left: `400px`, rotate: `0deg`, scale: `1`, opacity: `100`, zIndex: `0`}}
+      style={{top: `100px`, left: `400px`, rotate: `0deg`, scale: `1`, opacity: `1`, zIndex: `0`}}
       onMouseDown={() => {setActiveElement(dragRef.current); console.log(dragRef.current)}}
     >
       <p>{text}</p>
-      <img src={imgSrc} alt="placeholder" width="200" />
-      <p>{text}</p>
+      <img src={imgSrc} alt="placeholder" width="50" />
     </div>
   )
 }
