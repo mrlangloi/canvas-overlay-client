@@ -10,6 +10,95 @@ body {
   margin: 0;
   padding: 0;
   background-color: #36454f;
+  width: 5120px;
+  height: 2880px;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0 0.5rem;
+  padding: 0;
+
+}
+
+input {
+  border-radius: 3px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.controller {
+  position: sticky;
+  background-color: dimgray;
+  width: 400px;
+  height: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.layers {
+  margin: 1rem 0;
+  width: 350px;
+}
+
+.media-control {
+  margin: 1rem 0;
+  width: 350px;
+}
+
+.media-control-body div {
+  margin: 10px;
+
+}
+
+.range-slider {
+  width: 100%;
+}
+
+#image-source-input {
+  width: 325px;
+}
+
+.number-input {
+  width: 60px;
+}
+
+.button {
+  color: white;
+  background-color: steelblue;
+  border-radius: 5%;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
+
+.layers-body {
+  background-color: slategray;
+}
+
+.layer {
+  padding: .5vh;
+}
+
+.layer:hover {
+  cursor: pointer;
 }
 
 .media-card {
@@ -19,6 +108,7 @@ body {
 
 .media-card:hover {
   border: 1px solid white;
+  cursor: move;
 }
 
 .active {
