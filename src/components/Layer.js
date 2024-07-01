@@ -2,13 +2,17 @@ import React from 'react';
 
 function Layer(props) {
 
-  const { setActiveElement } = props;
+  const { setActiveElement, element } = props;
 
+  function handleLayerClick(e) {
+    setActiveElement(element);
+  
+  }
 
 
   return (
-    <div className="layer">
-      test
+    <div className="layer" onClick={handleLayerClick}>
+      {element.id}
     </div>
   )
 }
