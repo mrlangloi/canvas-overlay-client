@@ -5,9 +5,8 @@ import React, { useEffect, useRef } from 'react';
 
 function MediaCard(props) {
 
-  const { id, addToRefs, activeElement, setActiveElement, setPosX, setPosY, zIndex } = props;
+  const { id, addToRefs, activeElement, setActiveElement, setPosX, setPosY, zIndex, text } = props;
 
-  const text = "e";
   const imgSrc = "https://via.placeholder.com/50";
 
   const dragRef = useRef(null);
@@ -70,8 +69,8 @@ function MediaCard(props) {
       style={{top: `100px`, left: `400px`, rotate: `0deg`, scale: `1`, opacity: `1`, zIndex: `0`}}
       onMouseDown={() => {setActiveElement(dragRef.current); console.log(dragRef.current)}}
     >
-      <p>{text}</p>
-      <img src={imgSrc} alt="placeholder" width="50" />
+      <p></p>
+      <img src={imgSrc} alt="placeholder" width="" />
     </div>
   )
 }

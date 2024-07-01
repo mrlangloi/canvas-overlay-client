@@ -5,6 +5,15 @@ import MediaControls from './MediaControls';
 
 // sidebar to adjust the properties of current media card
 
+/**
+ * Currently, the media cards are children to the controller
+ * therefore, if I set the controller's position as fixed,
+ * the media cards will also be fixed.
+ * I need to create a separate component for the media cards to
+ * be children of so that the controller can be fixed and the
+ * media cards can be absolute.
+ */
+
 function Controller() {
 
   const defaultState = {
@@ -27,6 +36,7 @@ function Controller() {
   const [opacity, setOpacity] = useState(100)
   const [zIndex, setZIndex] = useState(0)
   const [imgSrc, setImgSrc] = useState("https://via.placeholder.com/150")
+  const [text, setText] = useState("placeholder text")
 
   const [activeElement, setActiveElement] = useState(null)
 
@@ -44,6 +54,7 @@ function Controller() {
     setScale(Math.round(parseFloat(activeElement.style.scale) * 100));
     setOpacity(Math.round(parseFloat(activeElement.style.opacity) * 100));
     setZIndex(parseInt(activeElement.style.zIndex));
+    setText(activeElement.querySelector('p').textContent);
 
   }, [activeElement])
 
@@ -63,6 +74,7 @@ function Controller() {
 
       <Layers 
         setActiveElement={setActiveElement} 
+        listOfRefs={listOfRefs}
       />
 
       <MediaControls 
@@ -81,6 +93,8 @@ function Controller() {
         setZIndex={setZIndex}
         imgSrc={imgSrc}
         setImgSrc={setImgSrc}
+        text={text}
+        setText={setText}
       />
 
       <MediaCard 
@@ -90,6 +104,7 @@ function Controller() {
         setActiveElement={setActiveElement} 
         setPosX={setPosX} 
         setPosY={setPosY}
+        text={text}
       />
 
       <MediaCard 
@@ -98,7 +113,8 @@ function Controller() {
         activeElement={activeElement}
         setActiveElement={setActiveElement} 
         setPosX={setPosX} 
-        setPosY={setPosY} 
+        setPosY={setPosY}
+        text={text}
       />
 
     </div>
