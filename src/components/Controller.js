@@ -5,12 +5,12 @@ import MediaControls from './MediaControls';
 // sidebar to adjust the properties of current media card
 
 /**
- * Currently, the media cards are children to the controller
- * therefore, if I set the controller's position as fixed,
- * the media cards will also be fixed.
- * I need to create a separate component for the media cards to
- * be children of so that the controller can be fixed and the
- * media cards can be absolute.
+ * I need to change a lot of things in MediaControls
+ * specifically, instead of updating the properties of the activeElement
+ * I need to update the properties of the media card object
+ * that is stored in the list of media cards
+ * then I need to link the media card properties to the styles
+ * of the corresponding element so that the changes can be seen
  */
 
 function Controller() {
@@ -29,16 +29,18 @@ function Controller() {
   }
 
   function createMediaCard() {
-    // create a new media card
-    // set the media card's properties to the default state
-    // add the media card to the list of media cards
+
+
+    /**
+     * create an object to store the media card information
+     * set the object's properties to the default state
+     * add the object to the list of media cards
+     */
 
 
   }
 
-  
 
-  // add element to the list of references
 
 
   return (
