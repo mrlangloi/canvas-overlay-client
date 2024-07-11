@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CardContext } from '../contexts/CardContext';
+import { CardListContext } from '../contexts/CardListContext';
 import Layer from './Layer';
 
 function Layers(props) {
 
-  const { setActiveElement, listOfRefs } = props;
+  const { setActiveElement } = useContext(CardContext);
+  const { listOfCards } = useContext(CardListContext);
 
-  if (listOfRefs.current.length === 0) {
+  if (listOfCards.length === 0) {
     return (
       <div className="layers">
         <div className="layers-header">
@@ -18,7 +21,7 @@ function Layers(props) {
     )
   }
 
-  const layers = listOfRefs.current.map((element, index) => {
+  const layers = listOfCards.current.map((element, index) => {
     return (
       <Layer 
         key={index}

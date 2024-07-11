@@ -1,7 +1,10 @@
+import React, { useContext, useEffect } from 'react';
+import { CardContext } from '../contexts/CardContext';
+import { CardListContext } from '../contexts/CardListContext';
 
 // settings to fine-tune the properties of the media card
 
-function MediaControls(props) {
+function MediaControls() {
 
   const { 
     activeElement,
@@ -20,8 +23,23 @@ function MediaControls(props) {
     imgSrc,
     setImgSrc,
     text,
-    setText
-  } = props;
+    setText } = useContext(CardContext);
+
+  const { addToList } = useContext(CardListContext);
+
+  useEffect(() => {
+    if (!activeElement) return;
+
+    setImgSrc(activeElement.querySelector('img').src);
+    setPosX(parseInt(activeElement.style.left));
+    setPosY(parseInt(activeElement.style.top));
+    setRotation(parseInt(activeElement.style.rotate));
+    setScale(Math.round(parseFloat(activeElement.style.scale) * 100));
+    setOpacity(Math.round(parseFloat(activeElement.style.opacity) * 100));
+    setZIndex(parseInt(activeElement.style.zIndex));
+    setText(activeElement.querySelector('p').textContent);
+
+  }, [activeElement])
 
   function handleImageSourceChange(e) {
     setImgSrc(e.target.value);

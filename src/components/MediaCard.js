@@ -1,24 +1,44 @@
-import React, { useEffect, useRef } from 'react';
-
+import React, { useContext, useEffect, useRef } from 'react';
+import { CardContext } from '../contexts/CardContext';
+import { CardListContext } from '../contexts/CardListContext';
 
 // every image/text/gif card on the page
 
 function MediaCard(props) {
 
-  const { id, addToRefs, activeElement, setActiveElement, setPosX, setPosY, zIndex, text } = props;
+  const { activeElement,
+    setActiveElement,
+    setPosX,
+    setPosY,
+    zIndex,
+  } = useContext(CardContext);
 
-  const imgSrc = "https://via.placeholder.com/50";
+  const { addToList } = useContext(CardListContext);
+
+  const { id } = props;
+
+  const text = "placeholder text";
+  const imgSrc = "https://via.placeholder.com/150";
 
   const dragRef = useRef(null);
+
+  // when the component mounts, make the element draggable, add it to the list of references, and set it as the active element
+  useEffect(() => {
+    if (dragRef.current) {
+      dragElement(dragRef.current);
+      addToList(dragRef.current);
+      setActiveElement(dragRef.current);
+    }
+  }, []);
 
   // source: https://www.w3schools.com/howto/howto_js_draggable.asp
   // makes the element draggable
   function dragElement(element) {
 
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  
+
     element.onmousedown = dragMouseDown;
-  
+
     function dragMouseDown(e) {
       e = e || window.event;
       e.preventDefault();
@@ -29,7 +49,7 @@ function MediaCard(props) {
       // call a function whenever the cursor moves:
       document.onmousemove = elementDrag;
     }
-  
+
     function elementDrag(e) {
       e = e || window.event;
       e.preventDefault();
@@ -44,7 +64,7 @@ function MediaCard(props) {
       setPosX(element.offsetLeft - pos1);
       setPosY(element.offsetTop - pos2);
     }
-  
+
     function closeDragElement() {
       /* stop moving when mouse button is released:*/
       document.onmouseup = null;
@@ -52,24 +72,15 @@ function MediaCard(props) {
     }
   }
 
-  // when the component mounts, make the element draggable, add it to the list of references, and set it as the active element
-  useEffect(() => {
-    if (dragRef.current) {
-      dragElement(dragRef.current);
-      addToRefs(dragRef.current);
-      setActiveElement(dragRef.current);
-    }
-  }, []);
-
   return (
-    <div 
-      className={activeElement === dragRef.current ? "media-card active" : "media-card"} 
+    <div
+      className={activeElement === dragRef.current ? "media-card active" : "media-card"}
       id={id}
-      ref={dragRef} 
-      style={{top: `100px`, left: `400px`, rotate: `0deg`, scale: `1`, opacity: `1`, zIndex: `0`}}
-      onMouseDown={() => {setActiveElement(dragRef.current); console.log(dragRef.current)}}
+      ref={dragRef}
+      style={{ top: `100px`, left: `400px`, rotate: `0deg`, scale: `1`, opacity: `1`, zIndex: `0` }}
+      onMouseDown={() => { setActiveElement(dragRef.current); console.log(dragRef.current) }}
     >
-      <p></p>
+      <p>{text}</p>
       <img src={imgSrc} alt="placeholder" width="" />
     </div>
   )
