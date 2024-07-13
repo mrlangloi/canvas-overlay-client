@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CardListContext } from '../contexts/CardListContext';
+import MediaObj from '../models/MediaObj';
 import Layers from './Layers';
 import MediaControls from './MediaControls';
 
@@ -15,37 +17,18 @@ import MediaControls from './MediaControls';
 
 function Controller() {
 
-  const defaultState = {
-    id: 0,
-    name: "Element",
-    text: "placeholder text",
-    src: "https://via.placeholder.com/150",
-    posX: 0,
-    posY: 0,
-    rotate: 0,
-    scale: 1,
-    opacity: 1,
-    zindex: 0
+  const { listOfCards, setListOfCards } = useContext(CardListContext);
+
+  function handleCreateCard() {
+    const newCard = new MediaObj(listOfCards.length + 1);
+    setListOfCards([...listOfCards, newCard])
   }
-
-  function createMediaCard() {
-
-
-    /**
-     * create an object to store the media card information
-     * set the object's properties to the default state
-     * add the object to the list of media cards
-     */
-
-
-  }
-
-
-
 
   return (
     <div className="controller">
       <h1>Main Control</h1>
+
+      <button onClick={handleCreateCard}>+ Create</button>
 
       <Layers />
 

@@ -23,63 +23,63 @@ function MediaControls() {
     imgSrc,
     setImgSrc,
     text,
-    setText } = useContext(CardContext);
+    setText
+  } = useContext(CardContext);
 
   const { addToList } = useContext(CardListContext);
 
   useEffect(() => {
     if (!activeElement) return;
 
-    setImgSrc(activeElement.querySelector('img').src);
-    setPosX(parseInt(activeElement.style.left));
-    setPosY(parseInt(activeElement.style.top));
-    setRotation(parseInt(activeElement.style.rotate));
-    setScale(Math.round(parseFloat(activeElement.style.scale) * 100));
-    setOpacity(Math.round(parseFloat(activeElement.style.opacity) * 100));
-    setZIndex(parseInt(activeElement.style.zIndex));
-    setText(activeElement.querySelector('p').textContent);
+    setImgSrc(activeElement.src);
+    setPosX(parseInt(activeElement.posX));
+    setPosY(parseInt(activeElement.posY));
+    setRotation(parseInt(activeElement.rotate));
+    setScale(Math.round(parseFloat(activeElement.scale) * 100));
+    setOpacity(Math.round(parseFloat(activeElement.opacity) * 100));
+    setZIndex(parseInt(activeElement.zIndex));
+    setText(activeElement.text);
 
   }, [activeElement])
 
   function handleImageSourceChange(e) {
     setImgSrc(e.target.value);
-    const imgElement = activeElement.querySelector('img');
-    imgElement.src = e.target.value;
+    activeElement.src = e.target.value;
   }
 
   function handleTextChange(e) {
     setText(e.target.value);
-    activeElement.querySelector('p').textContent = e.target.value;
+    activeElement.text = e.target.value;
   }
 
   function handlePosXChange(e) {
     setPosX(e.target.value);
-    activeElement.style.left = `${e.target.value}px`;
+    activeElement.posX = `${e.target.value}px`;
   }
 
   function handlePosYChange(e) {
     setPosY(e.target.value);
-    activeElement.style.top = `${e.target.value}px`;
+    activeElement.posY = `${e.target.value}px`;
   }
 
   function handleRotationChange(e) {
     setRotation(e.target.value);
-    activeElement.style.rotate = `${e.target.value}deg`;
+    activeElement.rotate = `${e.target.value}deg`;
   }
 
   function handleScaleChange(e) {
     setScale(e.target.value);
-    activeElement.style.scale = `${e.target.value / 100}`;
+    activeElement.scale = `${e.target.value / 100}`;
   }
 
   function handleOpacityChange(e) {
     setOpacity(e.target.value);
-    activeElement.style.opacity = `${e.target.value / 100}`;
+    activeElement.opacity = `${e.target.value / 100}`;
   }
 
   function handleZIndexChange(e) {
     setZIndex(e.target.value);
-    activeElement.style.zIndex = e.target.value;
+    activeElement.zIndex = e.target.value;
   }
 
   function handleReset(e) {
@@ -89,12 +89,12 @@ function MediaControls() {
     setScale(100);
     setOpacity(100);
     setZIndex(0);
-    activeElement.style.top = `100px`;
-    activeElement.style.left = `400px`;
-    activeElement.style.rotate = `0deg`;
-    activeElement.style.scale = `1`;
-    activeElement.style.opacity = `1`;
-    activeElement.style.zIndex = `0`;
+    activeElement.posY = `100px`;
+    activeElement.posX = `400px`;
+    activeElement.rotate = `0deg`;
+    activeElement.scale = `1`;
+    activeElement.opacity = `1`;
+    activeElement.zIndex = `0`;
   }
 
   function handleDelete(e) {
@@ -124,42 +124,42 @@ function MediaControls() {
 
       <div className="media-control-body flex-column">
         <div className="imageSource">
-          <input type="text" className="text-input" id="image-source-input" value={imgSrc} onChange={handleImageSourceChange} />
+          <input type="text" className="text-input" id="image-source-input" value={activeElement.src} onChange={handleImageSourceChange} />
         </div>
 
         <div>
-          <input type="text" id="inner-text-input" value={text} onChange={handleTextChange} />
+          <input type="text" id="inner-text-input" value={activeElement.text} onChange={handleTextChange} />
         </div>
 
         <div className="position flex-row">
           <p>Pos-X:</p>
-          <input type="number" className="number-input" value={posX} onChange={handlePosXChange} />
+          <input type="number" className="number-input" value={parseInt(activeElement.posX)} onChange={handlePosXChange} />
           <p>Pos-Y:</p>
-          <input type="number" className="number-input" value={posY} onChange={handlePosYChange} />
+          <input type="number" className="number-input" value={parseInt(activeElement.posY)} onChange={handlePosYChange} />
         </div>
 
         <div className="rotate flex-row">
           <p>Rotation:</p>
-          <input type="number" className="number-input" id="rotate-input" value={rotation} onChange={handleRotationChange} />
-          <input type="range" className="range-slider" id="rotate-slider" min="-180" max="180" value={rotation} onChange={handleRotationChange} />
+          <input type="number" className="number-input" id="rotate-input" value={parseInt(activeElement.rotate)} onChange={handleRotationChange} />
+          <input type="range" className="range-slider" id="rotate-slider" min="-180" max="180" value={parseInt(activeElement.rotate)} onChange={handleRotationChange} />
           
         </div>
 
         <div className="scale flex-row">
           <p>Scale:</p>
-          <input type="number" className="number-input" id="scale-input" value={scale} onChange={handleScaleChange} />
-          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={scale} onChange={handleScaleChange} />
+          <input type="number" className="number-input" id="scale-input" value={activeElement.scale * 100} onChange={handleScaleChange} />
+          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={activeElement.scale * 100} onChange={handleScaleChange} />
         </div>
 
         <div className="opacity flex-row">
           <p>Opacity:</p>
-          <input type="number" className="number-input" id="opacity-input" value={opacity} onChange={handleOpacityChange} />
-          <input type="range" className="range-slider" id="opacity-slider" min="0" max="100" value={opacity} onChange={handleOpacityChange} />
+          <input type="number" className="number-input" id="opacity-input" value={(activeElement.opacity * 100)} onChange={handleOpacityChange} />
+          <input type="range" className="range-slider" id="opacity-slider" min="0" max="100" value={(activeElement.opacity * 100)} onChange={handleOpacityChange} />
         </div>
 
         <div className="zindex flex-row">
           <p>Z-Index:</p>
-          <input type="number" className="number-input" value={zIndex} onChange={handleZIndexChange} />
+          <input type="number" className="number-input" value={activeElement.zIndex} onChange={handleZIndexChange} />
         </div>
 
         <div className="flex-row">

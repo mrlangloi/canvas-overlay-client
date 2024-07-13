@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { CardContext } from '../contexts/CardContext';
-import { CardListContext } from '../contexts/CardListContext';
 
 // every image/text/gif card on the page
 
@@ -10,15 +9,9 @@ function MediaCard(props) {
     setActiveElement,
     setPosX,
     setPosY,
-    zIndex,
   } = useContext(CardContext);
 
-  const { addToList } = useContext(CardListContext);
-
-  const { id } = props;
-
-  const text = "placeholder text";
-  const imgSrc = "https://via.placeholder.com/150";
+  const { id, element } = props;
 
   const dragRef = useRef(null);
 
@@ -26,20 +19,22 @@ function MediaCard(props) {
   useEffect(() => {
     if (dragRef.current) {
       dragElement(dragRef.current);
-      addToList(dragRef.current);
-      setActiveElement(dragRef.current);
+      setActiveElement(element);
     }
   }, []);
 
   // source: https://www.w3schools.com/howto/howto_js_draggable.asp
   // makes the element draggable
-  function dragElement(element) {
+  function dragElement(elmnt) {
 
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-    element.onmousedown = dragMouseDown;
+    elmnt.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
+
+      console.log(element);
+
       e = e || window.event;
       e.preventDefault();
       // get the mouse cursor position at startup:
@@ -59,10 +54,12 @@ function MediaCard(props) {
       pos3 = e.clientX;
       pos4 = e.clientY;
       // set the element's new position:
-      element.style.top = (element.offsetTop - pos2) + "px";
-      element.style.left = (element.offsetLeft - pos1) + "px";
-      setPosX(element.offsetLeft - pos1);
-      setPosY(element.offsetTop - pos2);
+      // elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      // elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      element.posY = (elmnt.offsetTop - pos2) + "px";
+      element.posX = (elmnt.offsetLeft - pos1) + "px";
+      setPosX(elmnt.offsetLeft - pos1);
+      setPosY(elmnt.offsetTop - pos2);
     }
 
     function closeDragElement() {
@@ -74,14 +71,14 @@ function MediaCard(props) {
 
   return (
     <div
-      className={activeElement === dragRef.current ? "media-card active" : "media-card"}
+      className={activeElement === element ? "media-card active" : "media-card"}
       id={id}
       ref={dragRef}
-      style={{ top: `100px`, left: `400px`, rotate: `0deg`, scale: `1`, opacity: `1`, zIndex: `0` }}
-      onMouseDown={() => { setActiveElement(dragRef.current); console.log(dragRef.current) }}
+      style={{ top: element.posY, left: element.posX, rotate: element.rotate, scale: element.scale, opacity: element.opacity, zIndex: element.zIndex }}
+      onMouseDown={() => {setActiveElement(element)}}
     >
-      <p>{text}</p>
-      <img src={imgSrc} alt="placeholder" width="" />
+      <p>{element.text}</p>
+      <img src={element.src} alt="placeholder" width="" />
     </div>
   )
 }

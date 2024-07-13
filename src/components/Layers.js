@@ -21,7 +21,7 @@ function Layers(props) {
     )
   }
 
-  const layers = listOfCards.current.map((element, index) => {
+  const layers = listOfCards.map((element, index) => {
     return (
       <Layer 
         key={index}
