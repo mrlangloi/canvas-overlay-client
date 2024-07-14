@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { CardContext } from '../contexts/CardContext';
 import { CardListContext } from '../contexts/CardListContext';
 import MediaObj from '../models/MediaObj';
 import Layers from './Layers';
@@ -6,29 +7,50 @@ import MediaControls from './MediaControls';
 
 // sidebar to adjust the properties of current media card
 
-/**
- * I need to change a lot of things in MediaControls
- * specifically, instead of updating the properties of the activeElement
- * I need to update the properties of the media card object
- * that is stored in the list of media cards
- * then I need to link the media card properties to the styles
- * of the corresponding element so that the changes can be seen
- */
-
 function Controller() {
 
-  const { listOfCards, setListOfCards } = useContext(CardListContext);
+  const { listOfCards, setListOfCards, listOfIds, setListOfIds } = useContext(CardListContext)
+  const { activeElement } = useContext(CardContext)
 
   function handleCreateCard() {
-    const newCard = new MediaObj(listOfCards.length + 1);
-    setListOfCards([...listOfCards, newCard])
+    // if listOfIds contain a false value, then create a new card using its index as the id
+    const index = listOfIds.indexOf(false)
+    if (index !== -1) {
+      setListOfIds(prevList => {
+        const newList = [...prevList]
+        newList[index] = true
+        return newList
+      })
+      const newCard = new MediaObj(index)
+      setListOfCards([...listOfCards, newCard])
+      console.log(listOfIds)
+    }
+  }
+
+  function handleDelete() {
+
+    if (listOfCards.length === 0 || !activeElement) return;
+
+    // remove the card from the list of cards and update listOfIds
+    const id = activeElement.id
+    setListOfIds(prevList => {
+      const newList = [...prevList]
+      newList[id] = false
+      return newList
+    })
+    const newListOfCards = listOfCards.filter(element => element.id !== id)
+    setListOfCards(newListOfCards)
+    console.log(listOfIds)
   }
 
   return (
     <div className="controller">
       <h1>Main Control</h1>
 
-      <button onClick={handleCreateCard}>+ Create</button>
+      <div className="flex-row">
+        <button className="button" onMouseUp={handleCreateCard}>+ Create</button>
+        <button className="button" onMouseUp={handleDelete}>- Delete</button>
+      </div>
 
       <Layers />
 

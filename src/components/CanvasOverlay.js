@@ -5,20 +5,25 @@ import MediaCard from './MediaCard';
 
 function CanvasOverlay() {
 
-  const { listOfCards, setListOfCards } = useContext(CardListContext);
+  const { listOfCards, setListOfCards, listOfIds, setListOfIds } = useContext(CardListContext);
 
   useEffect(() => {
+    // create 3 media cards when the app first loads to test the functionality
     if (listOfCards.length === 0) {
-      setListOfCards([new MediaObj(1), new MediaObj(2), new MediaObj(3)])
+      setListOfIds(prevList => {
+        const newList = [...prevList];
+        newList[0] = newList[1] = newList[2] = true;
+        return newList;
+      })
+      setListOfCards([new MediaObj(0), new MediaObj(1), new MediaObj(2)])
     }
-  }, [listOfCards.length, setListOfCards])
+  }, [])
   
 
   const cards = listOfCards.map((element, index) => {
     return (
       <MediaCard
         key={index}
-        id={index}
         element={element}
       />
     )

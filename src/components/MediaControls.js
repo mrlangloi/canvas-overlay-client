@@ -97,11 +97,6 @@ function MediaControls() {
     activeElement.zIndex = `0`;
   }
 
-  function handleDelete(e) {
-    // I'll work on this another time
-    // activeElement.remove();
-  }
-
   if (!activeElement) {
     return (
       <div className="media-control">
@@ -162,10 +157,7 @@ function MediaControls() {
           <input type="number" className="number-input" value={activeElement.zIndex} onChange={handleZIndexChange} />
         </div>
 
-        <div className="flex-row">
-          <button className="button" id="reset-button" onMouseUp={handleReset}>Reset</button>
-          <button className="button" id="delete-button" onMouseUp={handleDelete}>Delete</button>
-        </div>
+        <button className="button" id="reset-button" onMouseUp={handleReset}>Reset</button>
       </div>
     </div>
   )

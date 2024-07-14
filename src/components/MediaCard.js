@@ -15,13 +15,22 @@ function MediaCard(props) {
 
   const dragRef = useRef(null);
 
-  // when the component mounts, make the element draggable, add it to the list of references, and set it as the active element
+
+  /**
+   * when the component mounts, make the element draggable, add it
+   * to the list of references, and set it as the active element
+   * 
+   * for some reason, when 'element' is not in the list of dependencies,
+   * the other draggable elements bug out when I remove one of them.
+   * adding element to the list of dependencies fixes the bug??
+   * idk why but it works
+   */
   useEffect(() => {
     if (dragRef.current) {
       dragElement(dragRef.current);
       setActiveElement(element);
     }
-  }, []);
+  }, [element]);
 
   // source: https://www.w3schools.com/howto/howto_js_draggable.asp
   // makes the element draggable
@@ -53,9 +62,6 @@ function MediaCard(props) {
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      // set the element's new position:
-      // elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-      // elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
       element.posY = (elmnt.offsetTop - pos2) + "px";
       element.posX = (elmnt.offsetLeft - pos1) + "px";
       setPosX(elmnt.offsetLeft - pos1);
@@ -71,8 +77,8 @@ function MediaCard(props) {
 
   return (
     <div
-      className={activeElement === element ? "media-card active" : "media-card"}
-      id={id}
+      className={activeElement && activeElement.id === element.id ? "media-card active" : "media-card"}
+      id={element.id}
       ref={dragRef}
       style={{ top: element.posY, left: element.posX, rotate: element.rotate, scale: element.scale, opacity: element.opacity, zIndex: element.zIndex }}
       onMouseDown={() => {setActiveElement(element)}}
