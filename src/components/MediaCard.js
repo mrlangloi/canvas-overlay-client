@@ -77,8 +77,8 @@ function MediaCard(props) {
       style={{ top: element.posY, left: element.posX, rotate: element.rotate, scale: element.scale, opacity: element.opacity, zIndex: element.zIndex }}
       onMouseDown={() => {setActiveElement(element)}}
     >
-      <p>{element.text}</p>
-      <img src={element.src} alt="placeholder" width="" />
+      <p className="media-text">{element.text}</p>
+      <img src={element.src} width="" />
     </div>
   )
 }
