@@ -1,16 +1,26 @@
 class MediaObj {
+  #id;
+  name = "";
+  text = "placeholder text";
+  src = "https://via.placeholder.com/150";
+  posX = `400px`;
+  posY = `100px`;
+  rotate = `0deg`;
+  scale = 1.0;
+  opacity = 1.0;
+  zIndex = 1;
+
 
   constructor(id) {
-    this.id = `media-${id}`;
-    this.name = "";
-    this.text = "placeholder text";
-    this.src = "https://via.placeholder.com/150";
-    this.posX = `400px`;
-    this.posY = `100px`;
-    this.rotate = `0deg`;
-    this.scale = 1.0;
-    this.opacity = 1.0;
-    this.zIndex = 1;
+    this.id = id;
+  }
+
+  get id() {
+    return this.#id;
+  }
+
+  set id(value) {
+    this.#id = value;
   }
 }
 
