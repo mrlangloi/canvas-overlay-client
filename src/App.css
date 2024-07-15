@@ -58,10 +58,27 @@ input {
 
 .layers {
   margin: 1rem 0;
+  border: 1px solid white;
+}
+
+.layers-body {
   width: 315px;
   height: 30vh;
-  border: 1px solid white;
-  overflow: auto;
+  overflow-y: auto;
+  /* background-color: slategray; */
+}
+
+.layer {
+  padding: .5vh;
+  background-color: #ccc
+}
+
+.layer:hover {
+  cursor: pointer;
+}
+
+.layer-active {
+  background-color: darkgray;
 }
 
 .media-control {
@@ -70,8 +87,12 @@ input {
 }
 
 .media-control-body div {
-  margin: 10px;
+  margin: 0.5rem;
 
+}
+
+.checkbox {
+  margin: 0 0.5rem;
 }
 
 .range-slider {
@@ -92,22 +113,6 @@ input {
   border-radius: 5%;
   padding: 10px 20px;
   margin: 0 10px;
-}
-
-.layers-body {
-  background-color: slategray;
-}
-
-.layer {
-  padding: .5vh;
-}
-
-.layer:hover {
-  cursor: pointer;
-}
-
-.layer-active {
-  background-color: darkgray;
 }
 
 .media-card {

@@ -33,9 +33,7 @@ function Layers(props) {
 
   return (
     <div className="layers">
-      <div className="layers-header">
-        <p>Layers</p>
-      </div>
+      <p>Layers</p>
       <div className="layers-body">
           {layers}
       </div>
