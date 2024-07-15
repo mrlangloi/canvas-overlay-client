@@ -11,9 +11,7 @@ function Layers(props) {
   if (listOfCards.length === 0) {
     return (
       <div className="layers">
-        <div className="layers-header">
-          <p>Layers</p>
-        </div>
+        <p>Layers</p>
         <div className="layers-body">
           <p>No layers</p>
         </div>

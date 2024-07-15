@@ -63,7 +63,14 @@ input {
 
 .layers {
   margin: 1rem 0;
-  border: 1px solid white;
+}
+
+.layers p {
+  display: flex;
+  justify-content: space-between;
+  padding: .75vh;
+  margin: 0;
+  background-color: lightsteelblue;
 }
 
 .layers-body {
@@ -117,9 +124,11 @@ input {
 .button {
   color: white;
   background-color: steelblue;
-  border-radius: 5%;
+  border: none;
+  border-radius: 5px;
   padding: 10px 20px;
   margin: 0 10px;
+  cursor: pointer;
 }
 
 .media-card {
