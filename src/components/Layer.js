@@ -1,19 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
 
 function Layer(props) {
 
-  const { setActiveElement } = useContext(CardContext);
+  const { activeElement, setActiveElement } = useContext(CardContext);
   const { element } = props;
 
+  const [ isActive, setIsActive ] = useState(false);
+
   function handleLayerClick(e) {
-    setActiveElement(element);
-  
+    if (element !== activeElement) {
+      setActiveElement(element);
+      setIsActive(true);
+    }
   }
+
+  // for when the cards are clicked on or dragged
+  useEffect(() => {
+    if (element === activeElement) {
+      setIsActive(true);
+    }
+    else {
+      setIsActive(false);
+    }
+  }, [activeElement, element]);
 
 
   return (
-    <div className="layer" onClick={handleLayerClick}>
+    <div className={ isActive ? "layer layer-active" : "layer" } onClick={handleLayerClick}>
       {`${element.name}`}
     </div>
   )

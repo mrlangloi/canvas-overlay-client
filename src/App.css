@@ -106,6 +106,10 @@ input {
   cursor: pointer;
 }
 
+.layer-active {
+  background-color: darkgray;
+}
+
 .media-card {
   position: absolute;
   border: 1px solid transparent;
