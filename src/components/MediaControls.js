@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { CardContext } from '../contexts/CardContext';
+import Slider from './Slider';
  
 // settings to fine-tune the properties of the media card
 
@@ -197,18 +198,21 @@ function MediaControls() {
           <input type="number" className="number-input" value={posY} onChange={handlePosYChange} />
         </div>
 
-        <div className="rotate flex-row">
-          <p>Rotation:</p>
-          <input type="number" className="number-input" id="rotate-input" value={rotation} onChange={handleRotationChange} />
-          <input type="range" className="range-slider" id="rotate-slider" min="-180" max="180" value={rotation} onChange={handleRotationChange} />
-          
-        </div>
+        <Slider 
+          name="Rotation"
+          minValue="-180"
+          maxValue="180"
+          value={rotation}
+          handleFunction={handleRotationChange}
+        />
 
-        <div className="scale flex-row">
-          <p>Scale:</p>
-          <input type="number" className="number-input" id="scale-input" value={scale} onChange={handleScaleChange} />
-          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={scale} onChange={handleScaleChange} />
-        </div>
+        <Slider
+          name="Scale"
+          minValue="5"
+          maxValue="200"
+          value={scale}
+          handleFunction={handleScaleChange}
+        />
 
         <div className="flip flex-row">
           <div className="flex-column">
@@ -222,11 +226,13 @@ function MediaControls() {
           </div>
         </div>
 
-        <div className="opacity flex-row">
-          <p>Opacity:</p>
-          <input type="number" className="number-input" id="opacity-input" value={opacity} onChange={handleOpacityChange} />
-          <input type="range" className="range-slider" id="opacity-slider" min="0" max="100" value={opacity} onChange={handleOpacityChange} />
-        </div>
+        <Slider
+          name="Opacity"
+          minValue="0"
+          maxValue="100"
+          value={opacity}
+          handleFunction={handleOpacityChange}
+        />
 
         <div className="zindex flex-row">
           <p>Z-Index:</p>
