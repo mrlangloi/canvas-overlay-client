@@ -84,6 +84,9 @@ function MediaControls() {
   }
 
   function handleZIndexChange(e) {
+    if (e.target.value < 1) {
+      e.target.value = 1;
+    }
     setZIndex(e.target.value);
     activeElement.zIndex = e.target.value;
   }
@@ -120,7 +123,7 @@ function MediaControls() {
   return (
     <div className="media-control">
       <div className="media-control-header flex-column">
-        <p>{activeElement.id}</p>
+        <p>{activeElement.name}</p>
       </div>
 
       <div className="media-control-body flex-column">

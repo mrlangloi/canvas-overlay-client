@@ -1,6 +1,6 @@
 class MediaObj {
   #id;
-  name = "";
+  name = "untitled";
   text = "placeholder text";
   src = "https://via.placeholder.com/150";
   posX = `400px`;
@@ -13,6 +13,7 @@ class MediaObj {
 
   constructor(id) {
     this.id = id;
+    this.name += "(" + id + ")";
   }
 
   get id() {

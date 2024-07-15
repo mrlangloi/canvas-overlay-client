@@ -14,7 +14,7 @@ function Layer(props) {
 
   return (
     <div className="layer" onClick={handleLayerClick}>
-      {element.id}
+      {`${element.name}`}
     </div>
   )
 }
