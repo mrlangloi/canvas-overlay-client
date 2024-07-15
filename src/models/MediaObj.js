@@ -7,8 +7,11 @@ class MediaObj {
   posY = `100px`;
   rotate = `0deg`;
   scale = 1.0;
+  scaleX = 1.0;
+  scaleY = 1.0;
   opacity = 1.0;
   zIndex = 1;
+
 
 
   constructor(id) {
