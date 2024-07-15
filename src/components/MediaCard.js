@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
 
 // every image/text/gif card on the page
@@ -15,6 +15,22 @@ function MediaCard(props) {
 
   const dragRef = useRef(null);
 
+  const [cardClass, setCardClass] = useState("media-card");
+
+  useEffect(() => {
+    if (activeElement && activeElement.id === element.id) {
+      if (activeElement.visibility === "hidden") {
+        setCardClass("media-card hidden-card");
+      }
+      else {
+        setCardClass("media-card active-card");
+      }
+    }
+    else {
+      setCardClass("media-card");
+    } 
+  }, [element, activeElement, activeElement.visibility]);
+
 
   /**
    * when the component mounts, make the element draggable, add it
@@ -29,6 +45,7 @@ function MediaCard(props) {
     if (dragRef.current) {
       dragElement(dragRef.current);
       setActiveElement(element);
+
     }
   }, [element]);
 
@@ -77,7 +94,7 @@ function MediaCard(props) {
 
   return (
     <div
-      className={activeElement && activeElement.id === element.id ? "media-card active" : "media-card"}
+      className={cardClass}
       id={element.id}
       ref={dragRef}
       style={{ 

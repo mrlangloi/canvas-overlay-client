@@ -1,8 +1,9 @@
 class MediaObj {
   #id;
   name = "untitled";
-  text = "placeholder text";
+  visibility = "hidden"; // visible or hidden
   src = "https://via.placeholder.com/150";
+  text = "placeholder text";
   posX = `400px`;
   posY = `100px`;
   width;

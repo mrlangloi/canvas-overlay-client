@@ -5,6 +5,7 @@ export const CardContext = createContext();
 export function CardContextProvider({children}) {
 
   const [activeElement, setActiveElement] = useState(null)
+  const [isVisible, setIsVisible] = useState(false)
   const [imgSrc, setImgSrc] = useState("https://via.placeholder.com/150")
   const [text, setText] = useState("placeholder text")
   const [posX, setPosX] = useState(0)
@@ -17,6 +18,14 @@ export function CardContextProvider({children}) {
   const [zIndex, setZIndex] = useState(0)
 
   const value = {
+    activeElement,
+    setActiveElement,
+    isVisible,
+    setIsVisible,
+    imgSrc,
+    setImgSrc,
+    text,
+    setText,
     posX,
     setPosX,
     posY,
@@ -33,12 +42,6 @@ export function CardContextProvider({children}) {
     setOpacity,
     zIndex,
     setZIndex,
-    imgSrc,
-    setImgSrc,
-    text,
-    setText,
-    activeElement,
-    setActiveElement
   }
 
   return (

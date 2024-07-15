@@ -131,7 +131,11 @@ input {
   font-size: 16px;
 }
 
-.active {
+.hidden-card {
+  border: 1px solid darkred;
+}
+
+.active-card {
   border: 1px solid teal;
 }
 

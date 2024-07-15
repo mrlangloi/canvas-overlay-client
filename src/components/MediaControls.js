@@ -6,12 +6,17 @@ import { CardContext } from '../contexts/CardContext';
 /**
  * i could create a setting to change the width and height of the media card
  * rather than relying on scale
+ * 
+ * i may need to componentize the sliders (rotation, scale, and opacity) to
+ * reduce clutter
  *  */
 
 function MediaControls() {
 
   const { 
     activeElement,
+    isVisible,
+    setIsVisible,
     imgSrc,
     setImgSrc,
     text,
@@ -39,6 +44,7 @@ function MediaControls() {
   useEffect(() => {
     if (!activeElement) return;
 
+    setIsVisible(activeElement.visibility === "visible" ? true : false);
     setImgSrc(activeElement.src);
     setPosX(parseInt(activeElement.posX));
     setPosY(parseInt(activeElement.posY));
@@ -50,7 +56,18 @@ function MediaControls() {
     setZIndex(parseInt(activeElement.zIndex));
     setText(activeElement.text);
 
-  }, [activeElement, setImgSrc, setPosX, setPosY, setRotation, setScale, setOpacity, setZIndex, setText])
+  }, [activeElement, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setScale, setOrientX, setOrientY, setOpacity, setZIndex, setText])
+
+  function handleVisibilityChange(e) {
+    if (e.target.checked) {
+      setIsVisible(true);
+      activeElement.visibility = "visible";
+    }
+    else {
+      setIsVisible(false);
+      activeElement.visibility = "hidden";
+    }
+  }
 
   function handleImageSourceChange(e) {
     setImgSrc(e.target.value);
@@ -118,6 +135,7 @@ function MediaControls() {
   }
 
   function handleReset(e) {
+    setIsVisible(false);
     setPosX(0);
     setPosY(0);
     setRotation(0);
@@ -126,6 +144,7 @@ function MediaControls() {
     setOrientY(1);
     setOpacity(100);
     setZIndex(1);
+    activeElement.visibility = "hidden";
     activeElement.posY = `100px`;
     activeElement.posX = `400px`;
     activeElement.rotate = `0deg`;
@@ -157,6 +176,12 @@ function MediaControls() {
       </div>
 
       <div className="media-control-body flex-column">
+
+        <div className="flex-row">
+          <label htmlFor="visibility-checkbox">Display</label>
+          <input type="checkbox" className="checkbox" id="visibility-checkbox" checked={isVisible} onChange={handleVisibilityChange} />
+        </div>
+
         <div className="imageSource">
           <input type="text" className="text-input" id="image-source-input" value={imgSrc} onChange={handleImageSourceChange} />
         </div>
@@ -186,9 +211,15 @@ function MediaControls() {
         </div>
 
         <div className="flip flex-row">
-          <p>Flip:</p>
-          <input type="checkbox" className="checkbox" checked={orientX === -1 ? true : false} onChange={handleHorizFlip}></input>
-          <input type="checkbox" className="checkbox" checked={orientY === -1 ? true : false} onChange={handleVertFlip}></input>
+          <div className="flex-column">
+            <p>Flip:</p>
+            <div className="flex-row">
+              <label htmlFor="horiz-checkbox">Horizontal</label>
+              <input type="checkbox" className="checkbox" id="horiz-checkbox" checked={orientX === -1 ? true : false} onChange={handleHorizFlip} />
+              <label htmlFor="vert-checkbox">Vertical</label>
+              <input type="checkbox" className="checkbox" id="vert-checkbox" checked={orientY === -1 ? true : false} onChange={handleVertFlip} />
+            </div>
+          </div>
         </div>
 
         <div className="opacity flex-row">
