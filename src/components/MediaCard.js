@@ -13,13 +13,16 @@ function MediaCard(props) {
 
   const { id, element } = props;
 
-  const dragRef = useRef(null);
 
+  /**
+   * keeping track of the class of the card to change its appearance
+   * when it is the active element or when it is hidden
+   */
   const [cardClass, setCardClass] = useState("media-card");
 
   useEffect(() => {
     if (activeElement && activeElement.id === element.id) {
-      if (activeElement.visibility === "hidden") {
+      if (element.visibility === "hidden") {
         setCardClass("media-card hidden-card");
       }
       else {
@@ -29,7 +32,7 @@ function MediaCard(props) {
     else {
       setCardClass("media-card");
     } 
-  }, [element, activeElement, activeElement.visibility]);
+  }, [element.visibility, activeElement]);
 
 
   /**
@@ -41,6 +44,8 @@ function MediaCard(props) {
    * adding element to the list of dependencies fixes the bug??
    * idk why but it works
    */
+  const dragRef = useRef(null);
+
   useEffect(() => {
     if (dragRef.current) {
       dragElement(dragRef.current);
@@ -50,7 +55,7 @@ function MediaCard(props) {
   }, [element]);
 
   // source: https://www.w3schools.com/howto/howto_js_draggable.asp
-  // makes the element draggable
+  // makes the element draggable with a few edits to the source code
   function dragElement(elmnt) {
 
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
