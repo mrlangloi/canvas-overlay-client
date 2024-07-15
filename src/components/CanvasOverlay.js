@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { CardListContext } from '../contexts/CardListContext';
 import MediaObj from '../models/MediaObj';
 import MediaCard from './MediaCard';
+import TwitchEmbed from './TwitchEmbed';
 
 function CanvasOverlay() {
 
@@ -17,7 +18,7 @@ function CanvasOverlay() {
       })
       setListOfCards([new MediaObj(0), new MediaObj(1), new MediaObj(2)])
     }
-  }, [])
+  }, [listOfCards.length, setListOfCards, setListOfIds])
   
 
   const cards = listOfCards.map((element, index) => {
@@ -32,6 +33,7 @@ function CanvasOverlay() {
   return (
     <div className="canvas-overlay">
       {cards}
+      <TwitchEmbed />
     </div>
   )
 }

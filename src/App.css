@@ -10,8 +10,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #36454f;
-  width: 5120px;
-  height: 2880px;
+  width: 2560px;
+  height: 1440px;
 }
 
 h1 {
@@ -124,4 +124,13 @@ input {
 
 .active {
   border: 1px solid teal;
+}
+
+.canvas-overlay {
+  display: flex;
+  justify-content: center;
+}
+
+#twitch-embed {
+  margin: 50vh;
 }
