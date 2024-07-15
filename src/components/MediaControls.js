@@ -1,13 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import { CardContext } from '../contexts/CardContext';
-import { CardListContext } from '../contexts/CardListContext';
-
+ 
 // settings to fine-tune the properties of the media card
+
+/**
+ * i could create a setting to change the width and height of the media card
+ * rather than relying on scale
+ * 
+ * i could also add a setting to flip the media card horizontally or vertically
+ */
 
 function MediaControls() {
 
   const { 
     activeElement,
+    imgSrc,
+    setImgSrc,
+    text,
+    setText,
     posX,
     setPosX, 
     posY,
@@ -20,13 +30,9 @@ function MediaControls() {
     setOpacity,
     zIndex,
     setZIndex,
-    imgSrc,
-    setImgSrc,
-    text,
-    setText
   } = useContext(CardContext);
 
-  const { addToList } = useContext(CardListContext);
+  // const { addToList } = useContext(CardListContext);
 
   useEffect(() => {
     if (!activeElement) return;
@@ -40,7 +46,7 @@ function MediaControls() {
     setZIndex(parseInt(activeElement.zIndex));
     setText(activeElement.text);
 
-  }, [activeElement])
+  }, [activeElement, setImgSrc, setPosX, setPosY, setRotation, setScale, setOpacity, setZIndex, setText])
 
   function handleImageSourceChange(e) {
     setImgSrc(e.target.value);
@@ -88,13 +94,13 @@ function MediaControls() {
     setRotation(0);
     setScale(100);
     setOpacity(100);
-    setZIndex(0);
+    setZIndex(1);
     activeElement.posY = `100px`;
     activeElement.posX = `400px`;
     activeElement.rotate = `0deg`;
     activeElement.scale = `1`;
     activeElement.opacity = `1`;
-    activeElement.zIndex = `0`;
+    activeElement.zIndex = `1`;
   }
 
   if (!activeElement) {
@@ -119,42 +125,42 @@ function MediaControls() {
 
       <div className="media-control-body flex-column">
         <div className="imageSource">
-          <input type="text" className="text-input" id="image-source-input" value={activeElement.src} onChange={handleImageSourceChange} />
+          <input type="text" className="text-input" id="image-source-input" value={imgSrc} onChange={handleImageSourceChange} />
         </div>
 
         <div>
-          <input type="text" id="inner-text-input" value={activeElement.text} onChange={handleTextChange} />
+          <input type="text" id="inner-text-input" value={text} onChange={handleTextChange} />
         </div>
 
         <div className="position flex-row">
           <p>Pos-X:</p>
-          <input type="number" className="number-input" value={parseInt(activeElement.posX)} onChange={handlePosXChange} />
+          <input type="number" className="number-input" value={posX} onChange={handlePosXChange} />
           <p>Pos-Y:</p>
-          <input type="number" className="number-input" value={parseInt(activeElement.posY)} onChange={handlePosYChange} />
+          <input type="number" className="number-input" value={posY} onChange={handlePosYChange} />
         </div>
 
         <div className="rotate flex-row">
           <p>Rotation:</p>
-          <input type="number" className="number-input" id="rotate-input" value={parseInt(activeElement.rotate)} onChange={handleRotationChange} />
-          <input type="range" className="range-slider" id="rotate-slider" min="-180" max="180" value={parseInt(activeElement.rotate)} onChange={handleRotationChange} />
+          <input type="number" className="number-input" id="rotate-input" value={rotation} onChange={handleRotationChange} />
+          <input type="range" className="range-slider" id="rotate-slider" min="-180" max="180" value={rotation} onChange={handleRotationChange} />
           
         </div>
 
         <div className="scale flex-row">
           <p>Scale:</p>
-          <input type="number" className="number-input" id="scale-input" value={activeElement.scale * 100} onChange={handleScaleChange} />
-          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={activeElement.scale * 100} onChange={handleScaleChange} />
+          <input type="number" className="number-input" id="scale-input" value={scale} onChange={handleScaleChange} />
+          <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={scale} onChange={handleScaleChange} />
         </div>
 
         <div className="opacity flex-row">
           <p>Opacity:</p>
-          <input type="number" className="number-input" id="opacity-input" value={(activeElement.opacity * 100)} onChange={handleOpacityChange} />
-          <input type="range" className="range-slider" id="opacity-slider" min="0" max="100" value={(activeElement.opacity * 100)} onChange={handleOpacityChange} />
+          <input type="number" className="number-input" id="opacity-input" value={opacity} onChange={handleOpacityChange} />
+          <input type="range" className="range-slider" id="opacity-slider" min="0" max="100" value={opacity} onChange={handleOpacityChange} />
         </div>
 
         <div className="zindex flex-row">
           <p>Z-Index:</p>
-          <input type="number" className="number-input" value={activeElement.zIndex} onChange={handleZIndexChange} />
+          <input type="number" className="number-input" value={zIndex} onChange={handleZIndexChange} />
         </div>
 
         <button className="button" id="reset-button" onMouseUp={handleReset}>Reset</button>
