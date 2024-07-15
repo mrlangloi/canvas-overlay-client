@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
 import Slider from './Slider';
  
@@ -8,14 +8,16 @@ import Slider from './Slider';
  * i could create a setting to change the width and height of the media card
  * rather than relying on scale
  * 
- * i may need to componentize the sliders (rotation, scale, and opacity) to
- * reduce clutter
- *  */
+ * i need to move the toggle visibility to the layer.js component to
+ * reduce clutter and make it easier to see which card is being adjusted
+ */
 
 function MediaControls() {
 
   const { 
     activeElement,
+    name,
+    setName,
     isVisible,
     setIsVisible,
     imgSrc,
@@ -40,11 +42,14 @@ function MediaControls() {
     setZIndex,
   } = useContext(CardContext);
 
+  const [isEditing, setIsEditing] = useState(false);
+
   // const { addToList } = useContext(CardListContext);
 
   useEffect(() => {
     if (!activeElement) return;
 
+    setName(activeElement.name);
     setIsVisible(activeElement.visibility === "visible" ? true : false);
     setImgSrc(activeElement.src);
     setPosX(parseInt(activeElement.posX));
@@ -58,6 +63,29 @@ function MediaControls() {
     setText(activeElement.text);
 
   }, [activeElement, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setScale, setOrientX, setOrientY, setOpacity, setZIndex, setText])
+
+  function editName() {
+    if (isEditing) {
+      return (
+      <input 
+        type="text" 
+        value={activeElement.name} 
+        onChange={handleNameChange} 
+        onBlur={() => setIsEditing(false)} 
+        autoFocus
+      />
+    )}
+    else {
+      return (
+        <p onMouseUp={() => setIsEditing(true)} >{`${activeElement.name}`}</p>
+      )
+    }
+  }
+
+  function handleNameChange(e) {
+    setName(e.target.value);
+    activeElement.name = e.target.value;
+  }
 
   function handleVisibilityChange(e) {
     if (e.target.checked) {
@@ -173,7 +201,7 @@ function MediaControls() {
   return (
     <div className="media-control">
       <div className="media-control-header flex-column">
-        <p>{activeElement.name}</p>
+        {editName()}
       </div>
 
       <div className="media-control-body flex-column">

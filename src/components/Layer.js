@@ -38,7 +38,7 @@ function Layer(props) {
 
   return (
     <div className={ isActive ? "layer layer-active" : "layer" } ref={layerRef} onClick={handleLayerClick}>
-      {`${element.name}`}
+      {`${element.id} - ${element.name}`}
     </div>
   )
 }

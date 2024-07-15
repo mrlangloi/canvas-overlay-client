@@ -5,6 +5,7 @@ export const CardContext = createContext();
 export function CardContextProvider({children}) {
 
   const [activeElement, setActiveElement] = useState(null)
+  const [name, setName] = useState("New Card")
   const [isVisible, setIsVisible] = useState(false)
   const [imgSrc, setImgSrc] = useState("https://via.placeholder.com/150")
   const [text, setText] = useState("placeholder text")
@@ -20,6 +21,8 @@ export function CardContextProvider({children}) {
   const value = {
     activeElement,
     setActiveElement,
+    name,
+    setName,
     isVisible,
     setIsVisible,
     imgSrc,

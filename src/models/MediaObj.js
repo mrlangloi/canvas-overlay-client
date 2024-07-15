@@ -1,9 +1,9 @@
 class MediaObj {
   #id;
-  name = "untitled";
+  name = "New Card";
   visibility = "hidden"; // visible or hidden
   src = "https://via.placeholder.com/150";
-  text = "placeholder text";
+  text = "";
   posX = `400px`;
   posY = `100px`;
   width;
