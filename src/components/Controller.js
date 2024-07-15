@@ -10,7 +10,7 @@ import MediaControls from './MediaControls';
 function Controller() {
 
   const { listOfCards, setListOfCards, listOfIds, setListOfIds } = useContext(CardListContext)
-  const { activeElement } = useContext(CardContext)
+  const { activeElement, setActiveElement } = useContext(CardContext)
 
   function handleCreateCard() {
     // if listOfIds contain a false value, then create a new card using its index as the id
@@ -23,7 +23,7 @@ function Controller() {
       })
       const newCard = new MediaObj(index)
       setListOfCards([...listOfCards, newCard])
-      console.log(listOfIds)
+      setActiveElement(newCard)
     }
   }
 
@@ -40,7 +40,7 @@ function Controller() {
     })
     const newListOfCards = listOfCards.filter(element => element.id !== id)
     setListOfCards(newListOfCards)
-    console.log(listOfIds)
+    setActiveElement(newListOfCards.length > 0 ? newListOfCards[newListOfCards.length - 1] : null)
   }
 
   return (

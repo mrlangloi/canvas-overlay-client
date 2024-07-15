@@ -36,8 +36,7 @@ function MediaCard(props) {
 
 
   /**
-   * when the component mounts, make the element draggable, add it
-   * to the list of references, and set it as the active element
+   * when the component mounts, make the element draggable
    * 
    * for some reason, when 'element' is not in the list of dependencies,
    * the other draggable elements bug out when I remove one of them.
@@ -49,8 +48,6 @@ function MediaCard(props) {
   useEffect(() => {
     if (dragRef.current) {
       dragElement(dragRef.current);
-      setActiveElement(element);
-
     }
   }, [element]);
 

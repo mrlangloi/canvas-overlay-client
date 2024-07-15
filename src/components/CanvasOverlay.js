@@ -18,7 +18,7 @@ function CanvasOverlay() {
       })
       setListOfCards([new MediaObj(0), new MediaObj(1), new MediaObj(2)])
     }
-  }, [listOfCards.length, setListOfCards, setListOfIds])
+  }, [])
   
 
   const cards = listOfCards.map((element, index) => {
