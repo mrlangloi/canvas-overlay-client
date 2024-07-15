@@ -8,8 +8,6 @@ import Slider from './Slider';
  * i could create a setting to change the width and height of the media card
  * rather than relying on scale
  * 
- * i need to move the toggle visibility to the layer.js component to
- * reduce clutter and make it easier to see which card is being adjusted
  */
 
 function MediaControls() {
@@ -62,7 +60,7 @@ function MediaControls() {
     setZIndex(parseInt(activeElement.zIndex));
     setText(activeElement.text);
 
-  }, [activeElement, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setScale, setOrientX, setOrientY, setOpacity, setZIndex, setText])
+  }, [activeElement, setName, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setScale, setOrientX, setOrientY, setOpacity, setZIndex, setText])
 
   function editName() {
     if (isEditing) {
@@ -80,9 +78,7 @@ function MediaControls() {
       return (
         <div className="flex-row">
           <p id="media-name">{`${name}`}</p>
-          <a id="media-name-edit" onMouseUp={() => setIsEditing(true)}>
-            <i className="fa fa-edit" />
-          </a>
+          <i className="fa fa-edit" id="media-name-edit" onMouseUp={() => setIsEditing(true)} />
         </div>
       )
     }
@@ -91,17 +87,6 @@ function MediaControls() {
   function handleNameChange(e) {
     setName(e.target.value);
     activeElement.name = e.target.value;
-  }
-
-  function handleVisibilityChange(e) {
-    if (e.target.checked) {
-      setIsVisible(true);
-      activeElement.visibility = "visible";
-    }
-    else {
-      setIsVisible(false);
-      activeElement.visibility = "hidden";
-    }
   }
 
   function handleImageSourceChange(e) {
@@ -211,11 +196,6 @@ function MediaControls() {
       </div>
 
       <div className="media-control-body flex-column">
-
-        <div className="flex-row">
-          <label htmlFor="visibility-checkbox">Display</label>
-          <input type="checkbox" className="checkbox" id="visibility-checkbox" checked={isVisible} onChange={handleVisibilityChange} />
-        </div>
 
         <div className="imageSource">
           <input type="text" className="text-input" id="image-source-input" value={imgSrc} onChange={handleImageSourceChange} />

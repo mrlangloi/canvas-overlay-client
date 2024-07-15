@@ -32,7 +32,7 @@ function MediaCard(props) {
     else {
       setCardClass("media-card");
     } 
-  }, [element.visibility, activeElement]);
+  }, [element.visibility, element.id, activeElement]);
 
 
   /**

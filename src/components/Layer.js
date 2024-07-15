@@ -3,7 +3,7 @@ import { CardContext } from '../contexts/CardContext';
 
 function Layer(props) {
 
-  const { activeElement, setActiveElement } = useContext(CardContext);
+  const { activeElement, setActiveElement, setIsVisible } = useContext(CardContext);
   const { element } = props;
 
   const [ isActive, setIsActive ] = useState(false);
@@ -18,6 +18,17 @@ function Layer(props) {
         behavior: "smooth", 
         block: "center" 
       });
+    }
+  }
+
+  function handleVisibilityChange(e) {
+    if (element.visibility === "hidden") {
+      setIsVisible(true);
+      element.visibility = "visible";
+    }
+    else {
+      setIsVisible(false);
+      element.visibility = "hidden";
     }
   }
 
@@ -39,6 +50,7 @@ function Layer(props) {
   return (
     <div className={ isActive ? "layer layer-active" : "layer" } ref={layerRef} onClick={handleLayerClick}>
       {`${element.id} - ${element.name}`}
+      <i className={ element.visibility === "visible" ? "fa fa-eye" : "fa fa-eye-slash" } onClick={handleVisibilityChange} />
     </div>
   )
 }

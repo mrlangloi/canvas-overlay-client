@@ -6,6 +6,11 @@
   font-style: normal;
 }
 
+.fa {
+  cursor: pointer;
+  opacity: 0.66;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -69,7 +74,9 @@ input {
 }
 
 .layer {
-  padding: .5vh;
+  display: flex;
+  justify-content: space-between;
+  padding: .75vh;
   background-color: #ccc
 }
 
@@ -125,14 +132,8 @@ input {
   cursor: move;
 }
 
-#media-name-edit {
-  cursor: pointer;
-  opacity: 0.66;
-}
-
 #media-name-input {
   width: 150px;
-
 }
 
 .media-text {
