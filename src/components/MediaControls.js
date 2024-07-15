@@ -69,7 +69,8 @@ function MediaControls() {
       return (
       <input 
         type="text" 
-        value={activeElement.name} 
+        id="media-name-input"
+        value={name} 
         onChange={handleNameChange} 
         onBlur={() => setIsEditing(false)} 
         autoFocus
@@ -77,7 +78,12 @@ function MediaControls() {
     )}
     else {
       return (
-        <p onMouseUp={() => setIsEditing(true)} >{`${activeElement.name}`}</p>
+        <div className="flex-row">
+          <p id="media-name">{`${name}`}</p>
+          <a id="media-name-edit" onMouseUp={() => setIsEditing(true)}>
+            <i className="fa fa-edit" />
+          </a>
+        </div>
       )
     }
   }
