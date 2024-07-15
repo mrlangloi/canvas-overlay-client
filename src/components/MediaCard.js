@@ -80,11 +80,21 @@ function MediaCard(props) {
       className={activeElement && activeElement.id === element.id ? "media-card active" : "media-card"}
       id={element.id}
       ref={dragRef}
-      style={{ top: element.posY, left: element.posX, rotate: element.rotate, scale: element.scale, opacity: element.opacity, zIndex: element.zIndex }}
+      style={{ 
+        top: element.posY, 
+        left: element.posX, 
+        rotate: element.rotate, 
+        scale: element.scale, 
+        opacity: element.opacity, 
+        zIndex: element.zIndex 
+      }}
       onMouseDown={() => {setActiveElement(element)}}
     >
       <p className="media-text">{element.text}</p>
-      <img src={element.src} width="" />
+      <img src={element.src} style={{
+        transform: `scale(${element.orientX}, ${element.orientY})`, 
+      }} 
+      width="" />
     </div>
   )
 }

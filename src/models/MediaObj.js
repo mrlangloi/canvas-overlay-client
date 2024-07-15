@@ -5,10 +5,12 @@ class MediaObj {
   src = "https://via.placeholder.com/150";
   posX = `400px`;
   posY = `100px`;
+  width;
+  height;
   rotate = `0deg`;
-  scale = 1.0;
-  scaleX = 1.0;
-  scaleY = 1.0;
+  scale = 1.0; 
+  orientX = 1; // 1 or -1
+  orientY = 1; // 1 or -1
   opacity = 1.0;
   zIndex = 1;
 

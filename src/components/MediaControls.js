@@ -6,9 +6,7 @@ import { CardContext } from '../contexts/CardContext';
 /**
  * i could create a setting to change the width and height of the media card
  * rather than relying on scale
- * 
- * i could also add a setting to flip the media card horizontally or vertically
- */
+ *  */
 
 function MediaControls() {
 
@@ -26,6 +24,10 @@ function MediaControls() {
     setRotation,
     scale,
     setScale,
+    orientX,
+    setOrientX,
+    orientY,
+    setOrientY,
     opacity,
     setOpacity,
     zIndex,
@@ -42,6 +44,8 @@ function MediaControls() {
     setPosY(parseInt(activeElement.posY));
     setRotation(parseInt(activeElement.rotate));
     setScale(Math.round(parseFloat(activeElement.scale) * 100));
+    setOrientX(parseInt(activeElement.orientX));
+    setOrientY(parseInt(activeElement.orientY));
     setOpacity(Math.round(parseFloat(activeElement.opacity) * 100));
     setZIndex(parseInt(activeElement.zIndex));
     setText(activeElement.text);
@@ -78,6 +82,28 @@ function MediaControls() {
     activeElement.scale = `${e.target.value / 100}`;
   }
 
+  function handleHorizFlip(e) {
+    if (e.target.checked) {
+      setOrientX(-1);
+      activeElement.orientX = -1;
+    }
+    else {
+      setOrientX(1);
+      activeElement.orientX = 1;
+    }
+  }
+
+  function handleVertFlip(e) {
+    if (e.target.checked) {
+      setOrientY(-1);
+      activeElement.orientY = -1;
+    }
+    else {
+      setOrientY(1);
+      activeElement.orientY = 1;
+    }
+  }
+
   function handleOpacityChange(e) {
     setOpacity(e.target.value);
     activeElement.opacity = `${e.target.value / 100}`;
@@ -96,14 +122,18 @@ function MediaControls() {
     setPosY(0);
     setRotation(0);
     setScale(100);
+    setOrientX(1);
+    setOrientY(1);
     setOpacity(100);
     setZIndex(1);
     activeElement.posY = `100px`;
     activeElement.posX = `400px`;
     activeElement.rotate = `0deg`;
-    activeElement.scale = `1`;
-    activeElement.opacity = `1`;
-    activeElement.zIndex = `1`;
+    activeElement.scale = 1;
+    activeElement.orientX = 1;
+    activeElement.orientY = 1;
+    activeElement.opacity = 1;
+    activeElement.zIndex = 1;
   }
 
   if (!activeElement) {
@@ -153,6 +183,12 @@ function MediaControls() {
           <p>Scale:</p>
           <input type="number" className="number-input" id="scale-input" value={scale} onChange={handleScaleChange} />
           <input type="range" className="range-slider" id="scale-slider" min="5" max="200" value={scale} onChange={handleScaleChange} />
+        </div>
+
+        <div className="flip flex-row">
+          <p>Flip:</p>
+          <input type="checkbox" className="checkbox" checked={orientX === -1 ? true : false} onChange={handleHorizFlip}></input>
+          <input type="checkbox" className="checkbox" checked={orientY === -1 ? true : false} onChange={handleVertFlip}></input>
         </div>
 
         <div className="opacity flex-row">
