@@ -1,5 +1,5 @@
 class MediaObj {
-  #id;
+  id;
   name = "New Card";
   visibility = "hidden"; // visible or hidden
   src = "https://via.placeholder.com/150";
@@ -22,13 +22,6 @@ class MediaObj {
     this.name += "(" + id + ")";
   }
 
-  get id() {
-    return this.#id;
-  }
-
-  set id(value) {
-    this.#id = value;
-  }
 }
 
 export default MediaObj;
