@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
+import { SocketContext } from '../contexts/SocketContext';
 
 // every image/text/gif card on the page
 
@@ -12,6 +13,7 @@ function MediaCard(props) {
   } = useContext(CardContext);
 
   const { id, element } = props;
+  const { emitEvent } = useContext(SocketContext);
 
 
   /**
@@ -85,6 +87,7 @@ function MediaCard(props) {
       element.posX = (elmnt.offsetLeft - pos1) + "px";
       setPosX(elmnt.offsetLeft - pos1);
       setPosY(elmnt.offsetTop - pos2);
+      emitEvent('updateCard', element);
     }
 
     function closeDragElement() {

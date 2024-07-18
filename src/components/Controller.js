@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { CardContext } from '../contexts/CardContext';
 import { CardListContext } from '../contexts/CardListContext';
+import { SocketContext } from '../contexts/SocketContext';
 import MediaObj from '../models/MediaObj';
 import Layers from './Layers';
 import MediaControls from './MediaControls';
@@ -11,6 +12,7 @@ function Controller() {
 
   const { listOfCards, setListOfCards, listOfIds, setListOfIds } = useContext(CardListContext)
   const { activeElement, setActiveElement } = useContext(CardContext)
+  const { emitEvent } = useContext(SocketContext)
 
   function handleCreateCard() {
     // if listOfIds contain a false value, then create a new card using its index as the id
@@ -24,6 +26,7 @@ function Controller() {
       const newCard = new MediaObj(index)
       setListOfCards([...listOfCards, newCard])
       setActiveElement(newCard)
+      emitEvent('createCard', newCard)
     }
   }
 
@@ -41,6 +44,7 @@ function Controller() {
     const newListOfCards = listOfCards.filter(element => element.id !== id)
     setListOfCards(newListOfCards)
     setActiveElement(newListOfCards.length > 0 ? newListOfCards[newListOfCards.length - 1] : null)
+    emitEvent('deleteCard', id)
   }
 
   return (

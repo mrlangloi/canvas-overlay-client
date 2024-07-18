@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
+import { SocketContext } from '../contexts/SocketContext';
 import Slider from './Slider';
  
 // settings to fine-tune the properties of the media card
@@ -39,6 +40,8 @@ function MediaControls() {
     zIndex,
     setZIndex,
   } = useContext(CardContext);
+
+  const { emitEvent } = useContext(SocketContext);
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -112,6 +115,7 @@ function MediaControls() {
   function handleRotationChange(e) {
     setRotation(e.target.value);
     activeElement.rotate = `${e.target.value}deg`;
+    emitEvent('updateCard', activeElement);
   }
 
   function handleScaleChange(e) {
@@ -198,11 +202,11 @@ function MediaControls() {
       <div className="media-control-body flex-column">
 
         <div className="imageSource">
-          <input type="text" className="text-input" id="image-source-input" value={imgSrc} onChange={handleImageSourceChange} />
+          <input type="text" className="text-input" id="image-source-input" value={imgSrc} placeholder="Image URL.." onChange={handleImageSourceChange} />
         </div>
 
         <div>
-          <input type="text" id="inner-text-input" value={text} onChange={handleTextChange} />
+          <input type="text" id="inner-text-input" value={text} placeholder="Insert text.." onChange={handleTextChange} />
         </div>
 
         <div className="position flex-row">

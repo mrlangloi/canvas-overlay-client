@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
-const SocketContext = createContext();
+export const SocketContext = createContext();
+
 const socket = io.connect('http://localhost:8080');
 
 export function SocketContextProvider({ children }) {
@@ -18,12 +19,19 @@ export function SocketContextProvider({ children }) {
       setData(data);
     })
 
+    socket.on('message', (message) => {
+      alert(message);
+    })
 
 
   }, []);
 
+  const emitEvent = (event, data) => {
+    socket.emit(event, data);
+  };
+
   return (
-    <SocketContext.Provider value={{ socket, data }}>
+    <SocketContext.Provider value={{ socket, data, emitEvent }}>
       {children}
     </SocketContext.Provider>
   );

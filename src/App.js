@@ -1,21 +1,10 @@
-import React, { useEffect } from 'react';
-import io from 'socket.io-client';
+import React from 'react';
 import './App.css';
 import CanvasOverlay from './components/CanvasOverlay';
 import Controller from './components/Controller';
 import CombinedProvider from './contexts/CombinedProvider';
 
-const socket = io.connect('http://localhost:8080');
-
 function App() {
-
-  useEffect(() => {
-
-    socket.on('connect', () => {
-      console.log('connected')
-    })
-
-  }, []);
 
   return (
     <div className="App">
