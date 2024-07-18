@@ -3,6 +3,8 @@ import { CardContextProvider } from './CardContext';
 import { CardListContextProvider } from './CardListContext';
 import { SocketContextProvider } from './SocketContext';
 
+// combines all the contexts into one provider
+
 const CombinedProvider = ({ children }) => {
   return (
     <SocketContextProvider>

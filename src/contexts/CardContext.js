@@ -1,5 +1,9 @@
 import React, { createContext, useState } from 'react';
 
+// stores the active card element and its properties
+
+// all properties are state variables so that the page renders with each update
+
 export const CardContext = createContext();
 
 export function CardContextProvider({children}) {

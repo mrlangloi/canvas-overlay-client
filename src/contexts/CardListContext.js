@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { SocketContext } from './SocketContext';
 
+// stores the list of cards and their available ids
+
 export const CardListContext = createContext();
 
 export function CardListContextProvider({ children }) {
@@ -13,6 +15,8 @@ export function CardListContextProvider({ children }) {
   useEffect(() => {
     if (socket) {
 
+      // updates the card with the new data
+      // since there are too many variables to update, we just replace the card instead
       socket.on('updateCard', (card) => {
 
         const cardIndex = listOfCards.findIndex((element) => element.id === card.id);
@@ -27,6 +31,7 @@ export function CardListContextProvider({ children }) {
         setListOfCards(updatedCards);
       });
 
+      // creates a new card
       socket.on('createCard', (card) => {
 
         console.log(card.name)
@@ -43,6 +48,7 @@ export function CardListContextProvider({ children }) {
 
       });
 
+      // deletes a card
       socket.on('deleteCard', (id) => {
 
         const updatedCards = listOfCards.filter((element) => element.id !== id);

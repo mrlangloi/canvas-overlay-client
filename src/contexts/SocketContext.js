@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
+// establishes socket connection with server
+
 export const SocketContext = createContext();
 
 const socket = io.connect('http://localhost:8080');
@@ -15,14 +17,15 @@ export function SocketContextProvider({ children }) {
       console.log('connected')
     })
 
+    // test event
     socket.on('data', (data) => {
       setData(data);
     })
 
+    // another test event
     socket.on('message', (message) => {
       alert(message);
     })
-
 
   }, []);
 
