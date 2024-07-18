@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
+import { SocketContext } from '../contexts/SocketContext';
 
 function Layer(props) {
 
   const { activeElement, setActiveElement, setIsVisible } = useContext(CardContext);
+  const { emitEvent } = useContext(SocketContext);
   const { element } = props;
 
   const [ isActive, setIsActive ] = useState(false);
@@ -30,6 +32,7 @@ function Layer(props) {
       setIsVisible(false);
       element.visibility = "hidden";
     }
+    emitEvent('updateCard', element);
   }
 
   // for when the cards are clicked on or dragged
