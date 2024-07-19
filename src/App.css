@@ -15,8 +15,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #36454f;
-  width: 2560px;
-  height: 1440px;
 }
 
 h1 {
@@ -27,7 +25,6 @@ h1 {
 p {
   margin: 0 0.5rem;
   padding: 0;
-
 }
 
 input {
@@ -49,6 +46,11 @@ input {
   align-items: center;
 }
 
+.container {
+  width: 2560px;
+  height: 1440px;
+}
+
 .controller {
   position: fixed;
   background-color: dimgray;
@@ -58,7 +60,7 @@ input {
   flex-direction: column;
   align-items: center;
   z-index: 1000;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .layers {
@@ -166,6 +168,11 @@ input {
   cursor: move;
 }
 
+.media-card img {
+  vertical-align: middle;
+  border: none;
+}
+
 #media-name-input {
   width: 150px;
 }
@@ -185,10 +192,15 @@ input {
 }
 
 .canvas-overlay {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-items: center;
+  height: 100%;
 }
 
 #twitch-embed {
-  margin: 50vh;
+  border: 1px solid white;
+}
+
+div iframe {
+  vertical-align: middle;
 }
