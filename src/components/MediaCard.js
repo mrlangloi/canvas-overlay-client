@@ -12,7 +12,7 @@ function MediaCard(props) {
     setPosY,
   } = useContext(CardContext);
 
-  const { id, element } = props;
+  const { element } = props;
   const { emitEvent } = useContext(SocketContext);
 
 
@@ -32,7 +32,12 @@ function MediaCard(props) {
       }
     }
     else {
-      setCardClass("media-card");
+      if (element.visibility === "hidden") {
+        setCardClass("media-card streamer-mode");
+      }
+      else {
+        setCardClass("media-card");
+      }
     } 
   }, [element.visibility, element.id, activeElement]);
 
@@ -107,7 +112,6 @@ function MediaCard(props) {
         left: element.posX, 
         rotate: element.rotate, 
         scale: element.scale, 
-        opacity: element.opacity, 
         zIndex: element.zIndex 
       }}
       onMouseDown={() => {setActiveElement(element)}}
@@ -117,6 +121,8 @@ function MediaCard(props) {
         transform: `scale(${element.orientX}, ${element.orientY})`, 
         width: element.width,
         height: element.height,
+        display: element.src === "" ? "none" : "block",
+        opacity: element.opacity, 
       }} 
       width="" />
     </div>

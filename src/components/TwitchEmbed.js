@@ -1,11 +1,18 @@
+import React, { useContext } from 'react';
+import { StreamContext } from '../contexts/StreamContext';
+
 function TwitchEmbed() {
+
+  const { streamZIndex } = useContext(StreamContext)
+
   return (
-    <div id="twitch-embed" style={{ zIndex: -1, }}>
+    <div id="twitch-embed" style={{ zIndex: streamZIndex, }}>
       <iframe src="https://player.twitch.tv/?channel=dearbun&parent=localhost" 
+        className="streamer-mode"
+        frameBorder="0"
         title="Twitch Embed"
-        allowFullScreen={false} 
-        height="720" 
         width="1280"
+        height="720" 
       />
     </div>
   )

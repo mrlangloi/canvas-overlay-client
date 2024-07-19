@@ -11,17 +11,6 @@ function Layers(props) {
   const { activeElement, setActiveElement } = useContext(CardContext)
   const { emitEvent } = useContext(SocketContext)
 
-  if (listOfCards.length === 0) {
-    return (
-      <div className="layers">
-        <p>Layers</p>
-        <div className="layers-body">
-          <p>No layers</p>
-        </div>
-      </div>
-    )
-  }
-
   function handleCreateCard() {
     // if listOfIds contain a false value, then create a new card using its index as the id
     const index = listOfIds.indexOf(false)
@@ -51,7 +40,7 @@ function Layers(props) {
     })
     const newListOfCards = listOfCards.filter(element => element.id !== id)
     setListOfCards(newListOfCards)
-    setActiveElement(newListOfCards.length > 0 ? newListOfCards[newListOfCards.length - 1] : null)
+    setActiveElement(null)
     emitEvent('deleteCard', id)
   }
 
