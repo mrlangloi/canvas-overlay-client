@@ -32,7 +32,7 @@ function MediaControls() {
     setWidth,
     height,
     setHeight,
-    scale,
+    // scale,
     setScale,
     orientX,
     setOrientX,
@@ -68,7 +68,7 @@ function MediaControls() {
     setZIndex(parseInt(activeElement.zIndex));
     setText(activeElement.text);
 
-  }, [activeElement, setName, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setScale, setOrientX, setOrientY, setOpacity, setZIndex, setText])
+  }, [activeElement, setName, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setScale, setWidth, setHeight, setOrientX, setOrientY, setOpacity, setZIndex, setText])
 
   function editName() {
     if (isEditing) {
@@ -247,13 +247,16 @@ function MediaControls() {
           handleFunction={(e) => handleChange(e, "height")}
         />
 
+        
+        {/* not sure if I want to keep this in
+
         <Slider
           name="Scale"
           minValue="5"
           maxValue="200"
           value={scale}
           handleFunction={(e) => handleChange(e, "scale")}
-        />
+        /> */}
 
         <div className="flip flex-row">
           <div className="flex-column">
