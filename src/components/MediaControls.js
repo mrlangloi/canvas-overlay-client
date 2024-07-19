@@ -28,6 +28,10 @@ function MediaControls() {
     setPosY,
     rotation,
     setRotation,
+    width,
+    setWidth,
+    height,
+    setHeight,
     scale,
     setScale,
     orientX,
@@ -55,6 +59,8 @@ function MediaControls() {
     setPosX(parseInt(activeElement.posX));
     setPosY(parseInt(activeElement.posY));
     setRotation(parseInt(activeElement.rotate));
+    setWidth(parseInt(activeElement.width));
+    setHeight(parseInt(activeElement.height));
     setScale(Math.round(parseFloat(activeElement.scale) * 100));
     setOrientX(parseInt(activeElement.orientX));
     setOrientY(parseInt(activeElement.orientY));
@@ -112,6 +118,14 @@ function MediaControls() {
       case "rotation":
         setRotation(e.target.value);
         activeElement.rotate = `${e.target.value}deg`;
+        break;
+      case "width":
+        setWidth(e.target.value);
+        activeElement.width = `${e.target.value}px`;
+        break;
+      case "height":
+        setHeight(e.target.value);
+        activeElement.height = `${e.target.value}px`;
         break;
       case "scale":
         setScale(e.target.value);
@@ -215,6 +229,22 @@ function MediaControls() {
           maxValue="180"
           value={rotation}
           handleFunction={(e) => handleChange(e, "rotation")}
+        />
+
+        <Slider
+          name="Width"
+          minValue="2"
+          maxValue="1280"
+          value={width}
+          handleFunction={(e) => handleChange(e, "width")}
+        />
+
+        <Slider
+          name="Height"
+          minValue="2"
+          maxValue="720"
+          value={height}
+          handleFunction={(e) => handleChange(e, "height")}
         />
 
         <Slider

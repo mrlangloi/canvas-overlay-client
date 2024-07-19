@@ -2,12 +2,12 @@ class MediaObj {
   id;
   name = "New Card";
   visibility = "hidden"; // visible or hidden
-  src = "https://via.placeholder.com/150";
+  src = "https://via.placeholder.com/128";
   text = "";
   posX = `400px`;
   posY = `100px`;
-  width;
-  height;
+  width = `128px`;
+  height = `128px`;
   rotate = `0deg`;
   scale = 1.0; 
   orientX = 1; // 1 or -1

@@ -115,6 +115,8 @@ function MediaCard(props) {
       <p className="media-text">{element.text}</p>
       <img src={element.src} style={{
         transform: `scale(${element.orientX}, ${element.orientY})`, 
+        width: element.width,
+        height: element.height,
       }} 
       width="" />
     </div>
