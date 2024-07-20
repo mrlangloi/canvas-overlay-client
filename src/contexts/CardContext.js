@@ -4,6 +4,8 @@ import React, { createContext, useState } from 'react';
 
 // all properties are state variables so that the page renders with each update
 
+// i might separate out text and image into separate objects and contexts later
+
 export const CardContext = createContext();
 
 export function CardContextProvider({children}) {
@@ -16,8 +18,8 @@ export function CardContextProvider({children}) {
   const [posX, setPosX] = useState(0)
   const [posY, setPosY] = useState(0)
   const [rotation, setRotation] = useState(0)
-  const [width, setWidth] = useState(128)
-  const [height, setHeight] = useState(128)
+  const [width, setWidth] = useState(-1)
+  const [height, setHeight] = useState(-1)
   const [scale, setScale] = useState(100)
   const [orientX, setOrientX] = useState(1)
   const [orientY, setOrientY] = useState(1)

@@ -6,8 +6,8 @@ class MediaObj {
   text = "";
   posX = `400px`;
   posY = `100px`;
-  width = `128px`;
-  height = `128px`;
+  width = -1;
+  height = -1;
   rotate = `0deg`;
   scale = 1.0; 
   orientX = 1; // 1 or -1
