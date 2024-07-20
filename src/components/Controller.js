@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StreamContext } from '../contexts/StreamContext';
 import Layers from './Layers';
 import MediaControls from './MediaControls';
@@ -8,6 +8,11 @@ import MediaControls from './MediaControls';
 function Controller() {
 
   const { streamZIndex, setStreamZIndex } = useContext(StreamContext)
+  const [isControllerOpen, setIsControllerOpen] = useState(true);
+
+  function toggleController() {
+    setIsControllerOpen(!isControllerOpen);
+  }
 
   function handleStreamInteract(e) {
     if (e.target.checked) {
@@ -20,17 +25,25 @@ function Controller() {
 
   return (
     <div className="controller streamer-mode">
-      <h1>Main Control</h1>
 
-      <div className="flex-row">
-        <label htmlFor="toggle-stream-interact">Stream Interact</label>
-        <input type="checkbox" id="toggle-stream-interact" checked={streamZIndex === -1 ? false : true} onChange={handleStreamInteract} />
+      <i className={`fa fa-reorder absolute controller-icons ${isControllerOpen ? "controller-hidden" : "controller-show"}`} onClick={toggleController} />
+
+      <div className={`controller-body ${isControllerOpen ? "controller-show" : "controller-hidden"}`}>
+
+        <i className="fa fa-angle-double-left controller-icons" onClick={toggleController} />
+        <h1>Main Control</h1>
+
+
+        <div className="flex-row">
+          <label htmlFor="toggle-stream-interact">Stream Interact</label>
+          <input type="checkbox" id="toggle-stream-interact" checked={streamZIndex === -1 ? false : true} onChange={handleStreamInteract} />
+        </div>
+
+        <Layers />
+
+        <MediaControls />
+
       </div>
-
-
-      <Layers />
-
-      <MediaControls />
 
     </div>
   )
