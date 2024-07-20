@@ -11,6 +11,11 @@
   opacity: 0.66;
 }
 
+html {
+  width: 2560px;
+  height: 1440px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -46,12 +51,34 @@ input {
   align-items: center;
 }
 
+.width-350px {
+  width: 350px;
+}
+
+.absolute {
+  position: absolute;
+}
+
 .container {
-  width: 2560px;
-  height: 1440px;
+  display: flex;
+  flex-direction: row;
 }
 
 .controller {
+  z-index: 1000;
+}
+
+.controller-icons {
+  display: flex;
+  justify-content: space-between;
+  margin: .5rem;
+  padding: .5rem;
+  background-color: lightsteelblue;
+  border-radius: 5px;
+  scale: 1.2;
+}
+
+.controller-body {
   position: fixed;
   background-color: dimgray;
   width: 350px;
@@ -59,8 +86,17 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.controller-hidden {
+  transform: translateX(-100%);
+}
+
+.controller-show {
+  transform: translateX(0);
 }
 
 .layers {
@@ -129,7 +165,10 @@ input {
 
 .media-control-body div {
   margin: 0.5rem;
+}
 
+#inner-text-input {
+  resize: none;
 }
 
 .checkbox {
@@ -169,7 +208,7 @@ input {
 }
 
 .media-card img {
-  vertical-align: middle;
+  display: block;
   border: none;
 }
 
@@ -178,9 +217,12 @@ input {
 }
 
 .media-text {
+  margin: 0;
+  padding: 0;
   color: white;
   text-shadow: -2px 0 black, 0 1px black, 1px 0 black, 0 -2px black;
   font-size: 16px;
+  white-space: pre-wrap;
 }
 
 .hidden-card {
@@ -192,9 +234,12 @@ input {
 }
 
 .canvas-overlay {
-  display: grid;
-  place-items: center;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2560px;
+  height: 1440px;
+  overflow: auto;
 }
 
 #twitch-embed {
