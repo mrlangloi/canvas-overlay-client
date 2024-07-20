@@ -38,9 +38,16 @@ function MediaCard(props) {
       else {
         setCardClass("media-card");
       }
-    } 
+    }
   }, [element.visibility, element.id, activeElement]);
 
+
+  /**
+   * tenor gifs are mp4 files, so we need to check if the src is a video
+   * to render the correct element
+   */
+  const videoExtensions = [".mp4", ".webm", ".mov", ".avi"];
+  const isVideo = videoExtensions.some(ext => element.src.includes(ext));
 
   /**
    * when the component mounts, make the element draggable
@@ -102,29 +109,34 @@ function MediaCard(props) {
     }
   }
 
+  const mediaStyle = {
+    transform: `scale(${element.orientX}, ${element.orientY})`,
+    width: element.width === "-1px" ? "auto" : element.width,
+    height: element.height === "-1px" ? "auto" : element.height,
+    display: element.src === "" ? "none" : "block",
+    opacity: element.opacity,
+  }
+
   return (
     <div
       className={cardClass}
       id={element.id}
       ref={dragRef}
-      style={{ 
-        top: element.posY, 
-        left: element.posX, 
-        rotate: element.rotate, 
-        scale: element.scale, 
-        zIndex: element.zIndex 
+      style={{
+        top: element.posY,
+        left: element.posX,
+        rotate: element.rotate,
+        zIndex: element.zIndex
       }}
-      onMouseDown={() => {setActiveElement(element)}}
+      onMouseDown={() => setActiveElement(element)}
     >
       <p className="media-text">{element.text}</p>
-      <img src={element.src} style={{
-        transform: `scale(${element.orientX}, ${element.orientY})`, 
-        width: element.width,
-        height: element.height,
-        display: element.src === "" ? "none" : "block",
-        opacity: element.opacity, 
-      }} 
-      width="" />
+      {isVideo ? 
+        <video src={element.src} style={mediaStyle} autoPlay loop muted /> 
+        :
+        <img src={element.src} style={mediaStyle} />
+      }
+
     </div>
   )
 }
