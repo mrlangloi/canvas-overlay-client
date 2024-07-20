@@ -127,10 +127,10 @@ function MediaControls() {
         setHeight(e.target.value);
         activeElement.height = `${e.target.value}px`;
         break;
-      case "scale":
-        setScale(e.target.value);
-        activeElement.scale = `${e.target.value / 100}`;
-        break;
+      // case "scale":
+      //   setScale(e.target.value);
+      //   activeElement.scale = `${e.target.value / 100}`;
+      //   break;
       case "orientX":
         if (e.target.checked) {
           setOrientX(-1);
@@ -209,11 +209,11 @@ function MediaControls() {
       <div className="media-control-body flex-column">
 
         <div className="imageSource">
-          <input type="text" className="text-input" id="image-source-input" value={imgSrc} placeholder="Image URL.." onChange={(e) => handleChange(e, "image")} />
+          <input type="text" className="text-input" id="image-source-input" value={imgSrc} placeholder="Insert Image URL.." onChange={(e) => handleChange(e, "image")} />
         </div>
 
         <div>
-          <input type="text" id="inner-text-input" value={text} placeholder="Insert text.." onChange={(e) => handleChange(e, "text")} />
+          <textarea type="text" id="inner-text-input" value={text} placeholder="Insert Text.." onChange={(e) => handleChange(e, "text")} />
         </div>
 
         <div className="position flex-row">
@@ -231,26 +231,19 @@ function MediaControls() {
           handleFunction={(e) => handleChange(e, "rotation")}
         />
 
-        <Slider
-          name="Width"
-          minValue="2"
-          maxValue="1280"
-          value={width}
-          handleFunction={(e) => handleChange(e, "width")}
-        />
+        <div className="position flex-row">
+          <Slider
+            name="Width"
+            minValue="1"
+            maxValue="1280"
+            value={width}
+            handleFunction={(e) => handleChange(e, "width")}
+          />
+          <p>Height:</p>
+          <input type="number" className="number-input" value={height} onChange={(e) => handleChange(e, "height")} />
+        </div>
 
-        <Slider
-          name="Height"
-          minValue="2"
-          maxValue="720"
-          value={height}
-          handleFunction={(e) => handleChange(e, "height")}
-        />
-
-        
-        {/* not sure if I want to keep this in
-
-        <Slider
+        {/* <Slider
           name="Scale"
           minValue="5"
           maxValue="200"
