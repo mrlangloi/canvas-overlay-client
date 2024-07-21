@@ -22,6 +22,8 @@ function MediaControls() {
     setImgSrc,
     text,
     setText,
+    fontSize,
+    setFontSize,
     posX,
     setPosX,
     posY,
@@ -103,6 +105,10 @@ function MediaControls() {
       case "text":
         setText(e.target.value);
         activeElement.text = e.target.value;
+        break;
+      case "fontSize":
+        setFontSize(e.target.value);
+        activeElement.fontSize = e.target.value;
         break;
       case "posX":
         setPosX(e.target.value);
@@ -205,6 +211,10 @@ function MediaControls() {
 
         <div>
           <textarea type="text" id="inner-text-input" value={text} placeholder="Insert Text.." onChange={(e) => handleChange(e, "text")} />
+          <div className="flex-row">
+            <p>Font Size:</p>
+            <input type="number" className="number-input" value={fontSize} onChange={(e) => handleChange(e, "fontSize")} />
+          </div>
         </div>
 
         <div className="position flex-row">

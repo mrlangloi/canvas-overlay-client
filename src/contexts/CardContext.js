@@ -15,15 +15,16 @@ export function CardContextProvider({children}) {
   const [isVisible, setIsVisible] = useState(false)
   const [imgSrc, setImgSrc] = useState("https://via.placeholder.com/150")
   const [text, setText] = useState("placeholder text")
-  const [posX, setPosX] = useState(0)
-  const [posY, setPosY] = useState(0)
-  const [rotation, setRotation] = useState(0)
-  const [width, setWidth] = useState(-1)
-  const [height, setHeight] = useState(-1)
-  const [orientX, setOrientX] = useState(1)
-  const [orientY, setOrientY] = useState(1)
-  const [opacity, setOpacity] = useState(100)
-  const [zIndex, setZIndex] = useState(0)
+  const [fontSize, setFontSize] = useState("16")
+  const [posX, setPosX] = useState("0")
+  const [posY, setPosY] = useState("0")
+  const [rotation, setRotation] = useState("0")
+  const [width, setWidth] = useState("-1")
+  const [height, setHeight] = useState("-1")
+  const [orientX, setOrientX] = useState("1")
+  const [orientY, setOrientY] = useState("1")
+  const [opacity, setOpacity] = useState("100")
+  const [zIndex, setZIndex] = useState("0")
 
   const value = {
     activeElement,
@@ -36,6 +37,8 @@ export function CardContextProvider({children}) {
     setImgSrc,
     text,
     setText,
+    fontSize,
+    setFontSize,
     posX,
     setPosX,
     posY,

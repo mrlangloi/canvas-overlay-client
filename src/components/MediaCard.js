@@ -130,7 +130,7 @@ function MediaCard(props) {
       }}
       onMouseDown={() => setActiveElement(element)}
     >
-      <p className="media-text">{element.text}</p>
+      {element.text !== "" ? <p className="media-text" style={{ fontSize: `${element.fontSize}px` }}>{element.text}</p> : null}
       {isVideo ? 
         <video src={element.src} style={mediaStyle} autoPlay loop muted /> 
         :
