@@ -32,8 +32,6 @@ function MediaControls() {
     setWidth,
     height,
     setHeight,
-    // scale,
-    setScale,
     orientX,
     setOrientX,
     orientY,
@@ -56,19 +54,18 @@ function MediaControls() {
     setName(activeElement.name);
     setIsVisible(activeElement.visibility === "visible" ? true : false);
     setImgSrc(activeElement.src);
-    setPosX(parseInt(activeElement.posX));
-    setPosY(parseInt(activeElement.posY));
-    setRotation(parseInt(activeElement.rotate));
-    setWidth(parseInt(activeElement.width));
-    setHeight(parseInt(activeElement.height));
-    setScale(Math.round(parseFloat(activeElement.scale) * 100));
-    setOrientX(parseInt(activeElement.orientX));
-    setOrientY(parseInt(activeElement.orientY));
-    setOpacity(Math.round(parseFloat(activeElement.opacity) * 100));
-    setZIndex(parseInt(activeElement.zIndex));
+    setPosX(activeElement.posX);
+    setPosY(activeElement.posY);
+    setRotation(activeElement.rotate);
+    setWidth(activeElement.width);
+    setHeight(activeElement.height);
+    setOrientX(activeElement.orientX);
+    setOrientY(activeElement.orientY);
+    setOpacity(parseFloat(activeElement.opacity) * 100);
+    setZIndex(activeElement.zIndex);
     setText(activeElement.text);
 
-  }, [activeElement, setName, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setScale, setWidth, setHeight, setOrientX, setOrientY, setOpacity, setZIndex, setText])
+  }, [activeElement, setName, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setWidth, setHeight, setOrientX, setOrientY, setOpacity, setZIndex, setText])
 
   function editName() {
     if (isEditing) {
@@ -109,28 +106,24 @@ function MediaControls() {
         break;
       case "posX":
         setPosX(e.target.value);
-        activeElement.posX = `${e.target.value}px`;
+        activeElement.posX = e.target.value;
         break;
       case "posY":
         setPosY(e.target.value);
-        activeElement.posY = `${e.target.value}px`;
+        activeElement.posY = e.target.value;
         break;
       case "rotation":
         setRotation(e.target.value);
-        activeElement.rotate = `${e.target.value}deg`;
+        activeElement.rotate = e.target.value;
         break;
       case "width":
         setWidth(e.target.value);
-        activeElement.width = `${e.target.value}px`;
+        activeElement.width = e.target.value;
         break;
       case "height":
         setHeight(e.target.value);
-        activeElement.height = `${e.target.value}px`;
+        activeElement.height = e.target.value;
         break;
-      // case "scale":
-      //   setScale(e.target.value);
-      //   activeElement.scale = `${e.target.value / 100}`;
-      //   break;
       case "orientX":
         if (e.target.checked) {
           setOrientX(-1);
@@ -153,7 +146,7 @@ function MediaControls() {
         break;
       case "opacity":
         setOpacity(e.target.value);
-        activeElement.opacity = `${e.target.value / 100}`;
+        activeElement.opacity = (e.target.value / 100);
         break;
       case "zIndex":
         setZIndex(e.target.value);
@@ -164,16 +157,14 @@ function MediaControls() {
         setPosX(0);
         setPosY(0);
         setRotation(0);
-        setScale(100);
         setOrientX(1);
         setOrientY(1);
         setOpacity(100);
         setZIndex(1);
         activeElement.visibility = "hidden";
-        activeElement.posY = `100px`;
-        activeElement.posX = `400px`;
-        activeElement.rotate = `0deg`;
-        activeElement.scale = 1;
+        activeElement.posY = 100;
+        activeElement.posX = 400;
+        activeElement.rotate = 0;
         activeElement.orientX = 1;
         activeElement.orientY = 1;
         activeElement.opacity = 1;
@@ -242,14 +233,6 @@ function MediaControls() {
           <p>Height:</p>
           <input type="number" className="number-input" value={height} onChange={(e) => handleChange(e, "height")} />
         </div>
-
-        {/* <Slider
-          name="Scale"
-          minValue="5"
-          maxValue="200"
-          value={scale}
-          handleFunction={(e) => handleChange(e, "scale")}
-        /> */}
 
         <div className="flip flex-row">
           <div className="flex-column">

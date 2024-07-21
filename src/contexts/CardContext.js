@@ -20,7 +20,6 @@ export function CardContextProvider({children}) {
   const [rotation, setRotation] = useState(0)
   const [width, setWidth] = useState(-1)
   const [height, setHeight] = useState(-1)
-  const [scale, setScale] = useState(100)
   const [orientX, setOrientX] = useState(1)
   const [orientY, setOrientY] = useState(1)
   const [opacity, setOpacity] = useState(100)
@@ -47,8 +46,6 @@ export function CardContextProvider({children}) {
     setWidth,
     height,
     setHeight,
-    scale,
-    setScale,
     orientX,
     setOrientX,
     orientY,
