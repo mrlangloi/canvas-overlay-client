@@ -74,9 +74,6 @@ function MediaCard(props) {
     elmnt.onmousedown = dragMouseDown;
 
     function dragMouseDown(e) {
-
-      console.log(element);
-
       e = e || window.event;
       e.preventDefault();
       // get the mouse cursor position at startup:
@@ -95,8 +92,8 @@ function MediaCard(props) {
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      element.posY = (elmnt.offsetTop - pos2);
-      element.posX = (elmnt.offsetLeft - pos1);
+      element.posY = `${elmnt.offsetTop - pos2}`;
+      element.posX = `${elmnt.offsetLeft - pos1}`;
       setPosX(elmnt.offsetLeft - pos1);
       setPosY(elmnt.offsetTop - pos2);
       emitEvent('updateCard', element);
@@ -111,8 +108,8 @@ function MediaCard(props) {
 
   const mediaStyle = {
     transform: `scale(${element.orientX}, ${element.orientY})`,
-    width: element.width === -1 ? "auto" : `${element.width}px`,
-    height: element.height === -1 ? "auto" : `${element.height}px`,
+    width: element.width === "-1" ? "auto" : `${element.width}px`,
+    height: element.height === "-1" ? "auto" : `${element.height}px`,
     display: element.src === "" ? "none" : "block",
   }
 

@@ -4,16 +4,15 @@ class MediaObj {
   visibility = "hidden"; // visible or hidden
   src = "https://via.placeholder.com/128";
   text = "";
-  posX = 400;
-  posY = 100;
-  width = -1; // -1 == auto
-  height = -1; // -1 == auto
-  rotate = 0; // -180 to 180
-  // scale = 1.0; 
-  orientX = 1; // 1 or -1
-  orientY = 1; // 1 or -1
-  opacity = 1.0;
-  zIndex = 1;
+  posX = "400";
+  posY = "100";
+  width = "-1"; // -1 == auto
+  height = "-1"; // -1 == auto
+  rotate = "0"; // -180 to 180
+  orientX = "1"; // 1 or -1
+  orientY = "1"; // 1 or -1
+  opacity = "1";
+  zIndex = "10";
 
 
 
