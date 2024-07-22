@@ -8,8 +8,7 @@ function MediaCard(props) {
 
   const { activeElement,
     setActiveElement,
-    setPosX,
-    setPosY,
+    setCardState,
   } = useContext(CardContext);
 
   const { element } = props;
@@ -61,50 +60,56 @@ function MediaCard(props) {
 
   useEffect(() => {
     if (dragRef.current) {
+
+      // source: https://www.w3schools.com/howto/howto_js_draggable.asp
+      // makes the element draggable with a few edits to the source code
+      function dragElement(elmnt) {
+
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+        elmnt.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+          e = e || window.event;
+          e.preventDefault();
+          // get the mouse cursor position at startup:
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          document.onmouseup = closeDragElement;
+          // call a function whenever the cursor moves:
+          document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+          e = e || window.event;
+          e.preventDefault();
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          element.posY = `${elmnt.offsetTop - pos2}`;
+          element.posX = `${elmnt.offsetLeft - pos1}`;
+          setCardState((prev) => ({
+            ...prev,
+            posX: element.posX,
+            posY: element.posY
+          }));
+          emitEvent('updateCard', element);
+        }
+
+        function closeDragElement() {
+          /* stop moving when mouse button is released:*/
+          document.onmouseup = null;
+          document.onmousemove = null;
+        }
+      }
+
       dragElement(dragRef.current);
     }
-  }, [element]);
+  }, [element, emitEvent, setCardState]);
 
-  // source: https://www.w3schools.com/howto/howto_js_draggable.asp
-  // makes the element draggable with a few edits to the source code
-  function dragElement(elmnt) {
 
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-    elmnt.onmousedown = dragMouseDown;
-
-    function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // get the mouse cursor position at startup:
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
-    }
-
-    function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      pos1 = pos3 - e.clientX;
-      pos2 = pos4 - e.clientY;
-      pos3 = e.clientX;
-      pos4 = e.clientY;
-      element.posY = `${elmnt.offsetTop - pos2}`;
-      element.posX = `${elmnt.offsetLeft - pos1}`;
-      setPosX(elmnt.offsetLeft - pos1);
-      setPosY(elmnt.offsetTop - pos2);
-      emitEvent('updateCard', element);
-    }
-
-    function closeDragElement() {
-      /* stop moving when mouse button is released:*/
-      document.onmouseup = null;
-      document.onmousemove = null;
-    }
-  }
 
   const mediaStyle = {
     transform: `scale(${element.orientX}, ${element.orientY})`,
@@ -124,17 +129,17 @@ function MediaCard(props) {
       style={{
         top: `${element.posY}px`,
         left: `${element.posX}px`,
-        transform: `rotate(${element.rotate}deg)`,
+        transform: `rotate(${element.rotation}deg)`,
         opacity: element.opacity,
         zIndex: element.zIndex
       }}
       onMouseDown={() => setActiveElement(element)}
     >
       {element.text !== "" ? <p className="media-text" style={{ fontSize: `${element.fontSize}px` }}>{element.text}</p> : null}
-      {isVideo ? 
-        <video src={element.src} style={mediaStyle} autoPlay loop muted /> 
+      {isVideo ?
+        <video src={element.src} style={mediaStyle} autoPlay loop muted />
         :
-        <img src={element.src} style={mediaStyle} />
+        <img src={element.src} alt="" style={mediaStyle} />
       }
 
     </div>

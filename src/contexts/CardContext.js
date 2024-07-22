@@ -10,54 +10,29 @@ export const CardContext = createContext();
 
 export function CardContextProvider({children}) {
 
-  const [activeElement, setActiveElement] = useState(null)
-  const [name, setName] = useState("New Card")
-  const [isVisible, setIsVisible] = useState(false)
-  const [imgSrc, setImgSrc] = useState("https://via.placeholder.com/150")
-  const [text, setText] = useState("placeholder text")
-  const [fontSize, setFontSize] = useState("16")
-  const [posX, setPosX] = useState("0")
-  const [posY, setPosY] = useState("0")
-  const [rotation, setRotation] = useState("0")
-  const [width, setWidth] = useState("-1")
-  const [height, setHeight] = useState("-1")
-  const [orientX, setOrientX] = useState("1")
-  const [orientY, setOrientY] = useState("1")
-  const [opacity, setOpacity] = useState("100")
-  const [zIndex, setZIndex] = useState("0")
+  const [activeElement, setActiveElement] = useState(null);
+
+  const [cardState, setCardState] = useState({
+    name: "",
+    visibility: "hidden",
+    src: "",
+    text: "",
+    fontSize: "16",
+    posX: "0",
+    posY: "0",
+    width: "-1",
+    height: "-1",
+    rotation: "0",
+    opacity: "100",
+    zIndex: "0",
+  });
 
   const value = {
     activeElement,
     setActiveElement,
-    name,
-    setName,
-    isVisible,
-    setIsVisible,
-    imgSrc,
-    setImgSrc,
-    text,
-    setText,
-    fontSize,
-    setFontSize,
-    posX,
-    setPosX,
-    posY,
-    setPosY,
-    rotation,
-    setRotation,
-    width,
-    setWidth,
-    height,
-    setHeight,
-    orientX,
-    setOrientX,
-    orientY,
-    setOrientY,
-    opacity,
-    setOpacity,
-    zIndex,
-    setZIndex,
-  }
+    cardState,
+    setCardState,
+  };
 
   return (
     <CardContext.Provider value={value}>

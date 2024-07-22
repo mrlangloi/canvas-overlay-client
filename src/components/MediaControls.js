@@ -15,33 +15,8 @@ function MediaControls() {
 
   const {
     activeElement,
-    name,
-    setName,
-    setIsVisible,
-    imgSrc,
-    setImgSrc,
-    text,
-    setText,
-    fontSize,
-    setFontSize,
-    posX,
-    setPosX,
-    posY,
-    setPosY,
-    rotation,
-    setRotation,
-    width,
-    setWidth,
-    height,
-    setHeight,
-    orientX,
-    setOrientX,
-    orientY,
-    setOrientY,
-    opacity,
-    setOpacity,
-    zIndex,
-    setZIndex,
+    setActiveElement,
+    setCardState,
   } = useContext(CardContext);
 
   const { emitEvent } = useContext(SocketContext);
@@ -53,21 +28,22 @@ function MediaControls() {
   useEffect(() => {
     if (!activeElement) return;
 
-    setName(activeElement.name);
-    setIsVisible(activeElement.visibility === "visible" ? true : false);
-    setImgSrc(activeElement.src);
-    setPosX(activeElement.posX);
-    setPosY(activeElement.posY);
-    setRotation(activeElement.rotate);
-    setWidth(activeElement.width);
-    setHeight(activeElement.height);
-    setOrientX(activeElement.orientX);
-    setOrientY(activeElement.orientY);
-    setOpacity(parseFloat(activeElement.opacity) * 100);
-    setZIndex(activeElement.zIndex);
-    setText(activeElement.text);
+    setCardState({
+      name: activeElement.name,
+      visibility: activeElement.visibility,
+      src: activeElement.src,
+      text: activeElement.text,
+      fontSize: activeElement.fontSize,
+      posX: activeElement.posX,
+      posY: activeElement.posY,
+      width: activeElement.width,
+      height: activeElement.height,
+      rotation: activeElement.rotation,
+      opacity: activeElement.opacity,
+      zIndex: activeElement.zIndex,
+    });
 
-  }, [activeElement, setName, setIsVisible, setImgSrc, setPosX, setPosY, setRotation, setWidth, setHeight, setOrientX, setOrientY, setOpacity, setZIndex, setText])
+  }, [activeElement, setCardState]);
 
   function editName() {
     if (isEditing) {
@@ -75,8 +51,9 @@ function MediaControls() {
         <input
           type="text"
           id="media-name-input"
-          value={name}
-          onChange={(e) => handleChange(e, "name")}
+          name="name"
+          value={activeElement.name}
+          onChange={handleChange}
           onBlur={() => setIsEditing(false)}
           autoFocus
         />
@@ -85,102 +62,99 @@ function MediaControls() {
     else {
       return (
         <div className="flex-row">
-          <p id="media-name">{`${name}`}</p>
-          <i className="fa fa-edit" id="media-name-edit" onMouseUp={() => setIsEditing(true)} />
+          <p id="media-name">{`${activeElement.name}`}</p>
+          <i className="fa fa-edit" id="media-name-edit" onClick={() => setIsEditing(true)} />
         </div>
       )
     }
   }
 
-  function handleChange(e, property) {
-    switch (property) {
+  /**
+   * This function handle the changes to the media card properties
+   * 
+   * I tried doing:
+   * function handleChange(e) {
+   *   setCardState((prev) => ({...prev, [e.target.name]: e.target.value}));
+   *   setActiveElement((prev) => ({...prev, [e.target.name]: e.target.value}));
+   *   emitEvent("updateCard", activeElement);
+   * }
+   * but the active element on screen would not update
+   * this is just a bandaid fix for now until I can figure out a better
+   * solution.. or just leave it as it is..
+   */
+  function handleChange(e) {
+    setCardState((prev) => ({...prev, [e.target.name]: e.target.value}));
+
+    switch (e.target.name) {
       case "name":
-        setName(e.target.value);
         activeElement.name = e.target.value;
         break;
       case "image":
-        setImgSrc(e.target.value);
         activeElement.src = e.target.value;
         break;
       case "text":
-        setText(e.target.value);
         activeElement.text = e.target.value;
         break;
       case "fontSize":
-        setFontSize(e.target.value);
         activeElement.fontSize = e.target.value;
         break;
       case "posX":
-        setPosX(e.target.value);
         activeElement.posX = e.target.value;
         break;
       case "posY":
-        setPosY(e.target.value);
         activeElement.posY = e.target.value;
         break;
       case "rotation":
-        setRotation(e.target.value);
-        activeElement.rotate = e.target.value;
+        activeElement.rotation = e.target.value;
         break;
       case "width":
-        setWidth(e.target.value);
         activeElement.width = e.target.value;
         break;
       case "height":
-        setHeight(e.target.value);
         activeElement.height = e.target.value;
         break;
       case "orientX":
         if (e.target.checked) {
-          setOrientX(-1);
-          activeElement.orientX = -1;
+          activeElement.orientX = "-1";
         }
         else {
-          setOrientX(1);
-          activeElement.orientX = 1;
+          activeElement.orientX = "1";
         }
         break;
       case "orientY":
         if (e.target.checked) {
-          setOrientY(-1);
-          activeElement.orientY = -1;
+          activeElement.orientY = "-1";
         }
         else {
-          setOrientY(1);
-          activeElement.orientY = 1;
+          activeElement.orientY = "1";
         }
         break;
       case "opacity":
-        setOpacity(e.target.value);
-        activeElement.opacity = (e.target.value / 100);
+        activeElement.opacity = `${(e.target.value / 100)}`;
         break;
       case "zIndex":
-        setZIndex(e.target.value);
         activeElement.zIndex = e.target.value;
-        break;
-      case "reset":
-        setIsVisible(false);
-        setPosX(0);
-        setPosY(0);
-        setRotation(0);
-        setOrientX(1);
-        setOrientY(1);
-        setOpacity(100);
-        setZIndex(1);
-        activeElement.visibility = "hidden";
-        activeElement.posY = 100;
-        activeElement.posX = 400;
-        activeElement.rotate = 0;
-        activeElement.orientX = 1;
-        activeElement.orientY = 1;
-        activeElement.opacity = 1;
-        activeElement.zIndex = 1;
         break;
       default:
         break;
     }
 
     emitEvent("updateCard", activeElement);
+  }
+
+  function handleReset(e) {
+    setActiveElement((prev) => ({...prev,
+      isVisible: "hidden",
+      posX: "400",
+      posY: "100",
+      rotation: "0",
+      width: "-1",
+      height: "-1",
+      orientX: "1",
+      orientY: "1",
+      opacity: "100",
+      zIndex: "10",
+    }));
   }
 
   if (!activeElement) {
@@ -206,42 +180,42 @@ function MediaControls() {
       <div className="media-control-body flex-column">
 
         <div className="imageSource">
-          <input type="text" className="text-input" id="image-source-input" value={imgSrc} placeholder="Insert Image URL.." onChange={(e) => handleChange(e, "image")} />
+          <input type="text" className="text-input" id="image-source-input" name="src" value={activeElement.src} placeholder="Insert Image URL.." onChange={handleChange} />
         </div>
 
         <div>
-          <textarea type="text" id="inner-text-input" value={text} placeholder="Insert Text.." onChange={(e) => handleChange(e, "text")} />
+          <textarea type="text" id="inner-text-input" name="text" value={activeElement.text} placeholder="Insert Text.." onChange={handleChange} />
           <div className="flex-row">
             <p>Font Size:</p>
-            <input type="number" className="number-input" value={fontSize} onChange={(e) => handleChange(e, "fontSize")} />
+            <input type="number" className="number-input" name="fontSize" value={activeElement.fontSize} onChange={handleChange} />
           </div>
         </div>
 
         <div className="position flex-row">
           <p>Pos-X:</p>
-          <input type="number" className="number-input" value={posX} onChange={(e) => handleChange(e, "posX")} />
+          <input type="number" className="number-input" name="posX" value={activeElement.posX} onChange={handleChange} />
           <p>Pos-Y:</p>
-          <input type="number" className="number-input" value={posY} onChange={(e) => handleChange(e, "posY")} />
+          <input type="number" className="number-input" name="posY" value={activeElement.posY} onChange={handleChange} />
         </div>
 
         <Slider
-          name="Rotation"
+          name="rotation"
           minValue="-180"
           maxValue="180"
-          value={rotation}
-          handleFunction={(e) => handleChange(e, "rotation")}
+          value={activeElement.rotation}
+          handleChange={handleChange}
         />
 
         <div className="position flex-row">
           <Slider
-            name="Width"
+            name="width"
             minValue="1"
             maxValue="1280"
-            value={width}
-            handleFunction={(e) => handleChange(e, "width")}
+            value={activeElement.width}
+            handleChange={handleChange}
           />
           <p>Height:</p>
-          <input type="number" className="number-input" value={height} onChange={(e) => handleChange(e, "height")} />
+          <input type="number" className="number-input" name="height" value={activeElement.height} onChange={handleChange} />
         </div>
 
         <div className="flip flex-row">
@@ -249,27 +223,27 @@ function MediaControls() {
             <p>Flip:</p>
             <div className="flex-row">
               <label htmlFor="horiz-checkbox">Horizontal</label>
-              <input type="checkbox" className="checkbox" id="horiz-checkbox" checked={orientX === -1 ? true : false} onChange={(e) => handleChange(e, "orientX")} />
+              <input type="checkbox" className="checkbox" id="horiz-checkbox" name="orientX" checked={activeElement.orientX === "-1" ? true : false} onChange={handleChange} />
               <label htmlFor="vert-checkbox">Vertical</label>
-              <input type="checkbox" className="checkbox" id="vert-checkbox" checked={orientY === -1 ? true : false} onChange={(e) => handleChange(e, "orientY")} />
+              <input type="checkbox" className="checkbox" id="vert-checkbox" name="orientY" checked={activeElement.orientY === "-1" ? true : false} onChange={handleChange} />
             </div>
           </div>
         </div>
 
         <Slider
-          name="Opacity"
+          name="opacity"
           minValue="0"
           maxValue="100"
-          value={opacity}
-          handleFunction={(e) => handleChange(e, "opacity")}
+          value={activeElement.opacity * 100}
+          handleChange={handleChange}
         />
 
         <div className="zindex flex-row">
           <p>Z-Index:</p>
-          <input type="number" className="number-input" value={zIndex} onChange={(e) => handleChange(e, "zIndex")} />
+          <input type="number" className="number-input" name="zIndex" value={activeElement.zIndex} onChange={handleChange} />
         </div>
 
-        <button className="button" id="reset-button" onMouseUp={(e) => handleChange(e, "reset")}>Reset</button>
+        <button className="button" id="reset-button" name="reset" onClick={handleReset}>Reset</button>
       </div>
     </div>
   )

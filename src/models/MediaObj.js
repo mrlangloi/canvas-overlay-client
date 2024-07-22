@@ -9,7 +9,7 @@ class MediaObj {
   posY = "100";
   width = "-1"; // -1 == auto
   height = "-1"; // -1 == auto
-  rotate = "0"; // -180 to 180
+  rotation = "0"; // -180 to 180
   orientX = "1"; // 1 or -1
   orientY = "1"; // 1 or -1
   opacity = "1";

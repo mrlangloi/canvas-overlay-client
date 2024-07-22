@@ -1,12 +1,13 @@
 function Slider(props) {
 
-  const { name, minValue, maxValue, value, handleFunction } = props;
+  const { name, minValue, maxValue, value, handleChange } = props;
 
   return (
     <div className="rotate flex-row">
-      <p>{name}:</p>
-      <input type="number" className="number-input" id="rotate-input" min={minValue} max={maxValue} value={value} onChange={handleFunction} />
-      <input type="range" className="range-slider" id="rotate-slider" min={minValue} max={maxValue} value={value} onChange={handleFunction} />
+      {/* name variable has to match the object's variable name, so this is to capitalize the name */}
+      <p>{name.charAt(0).toUpperCase() + name.slice(1)}:</p>
+      <input type="number" className="number-input" name={name} min={minValue} max={maxValue} value={value} onChange={handleChange} />
+      <input type="range" className="range-slider" name={name} min={minValue} max={maxValue} value={value} onChange={handleChange} />
     </div>
   )
 }

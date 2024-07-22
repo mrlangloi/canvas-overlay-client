@@ -4,18 +4,18 @@ import { SocketContext } from '../contexts/SocketContext';
 
 function Layer(props) {
 
-  const { activeElement, setActiveElement, setIsVisible } = useContext(CardContext);
+  const { activeElement, setActiveElement, setCardState } = useContext(CardContext);
   const { emitEvent } = useContext(SocketContext);
   const { element } = props;
 
-  const [ isActive, setIsActive ] = useState(false);
+  const [ isLayerActive, setIsLayerActive ] = useState(false);
 
   const layerRef = useRef(null);
 
   function handleLayerClick(e) {
     if (element !== activeElement) {
       setActiveElement(element);
-      setIsActive(true);
+      setIsLayerActive(true);
       layerRef.current.scrollIntoView({ 
         behavior: "smooth", 
         block: "center" 
@@ -25,11 +25,11 @@ function Layer(props) {
 
   function handleVisibilityChange(e) {
     if (element.visibility === "hidden") {
-      setIsVisible(true);
+      setCardState((prev) => ({...prev, visibility: "visible"}));
       element.visibility = "visible";
     }
     else {
-      setIsVisible(false);
+      setCardState((prev) => ({...prev, visibility: "hidden"}));
       element.visibility = "hidden";
     }
     emitEvent('updateCard', element);
@@ -38,20 +38,20 @@ function Layer(props) {
   // for when the cards are clicked on or dragged
   useEffect(() => {
     if (element === activeElement) {
-      setIsActive(true);
+      setIsLayerActive(true);
       layerRef.current.scrollIntoView({ 
         behavior: "smooth", 
         block: "center" 
       });
     }
     else {
-      setIsActive(false);
+      setIsLayerActive(false);
     }
   }, [activeElement, element]);
 
 
   return (
-    <div className={ isActive ? "layer layer-active" : "layer" } ref={layerRef} onClick={handleLayerClick}>
+    <div className={ isLayerActive ? "layer layer-active" : "layer" } ref={layerRef} onClick={handleLayerClick}>
       {`${element.id} - ${element.name}`}
       <i className={ element.visibility === "visible" ? "fa fa-eye" : "fa fa-eye-slash" } onClick={handleVisibilityChange} />
     </div>
