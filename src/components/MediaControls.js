@@ -89,7 +89,7 @@ function MediaControls() {
       case "name":
         activeElement.name = e.target.value;
         break;
-      case "image":
+      case "src":
         activeElement.src = e.target.value;
         break;
       case "text":
@@ -130,7 +130,7 @@ function MediaControls() {
         }
         break;
       case "opacity":
-        activeElement.opacity = `${(e.target.value / 100)}`;
+        activeElement.opacity = `${parseFloat(e.target.value / 100)}`;
         break;
       case "zIndex":
         activeElement.zIndex = e.target.value;
@@ -234,7 +234,7 @@ function MediaControls() {
           name="opacity"
           minValue="0"
           maxValue="100"
-          value={activeElement.opacity * 100}
+          value={parseInt(activeElement.opacity * 100)}
           handleChange={handleChange}
         />
 
