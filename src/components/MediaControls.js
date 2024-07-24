@@ -1,161 +1,66 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CardContext } from '../contexts/CardContext';
-import { SocketContext } from '../contexts/SocketContext';
-import Slider from './Slider';
+import React, { useCallback, useContext, useState } from 'react'
+import { CardContext } from '../contexts/CardContext'
+import { SocketContext } from '../contexts/SocketContext'
+import { updateMediaCard } from '../utils/apiHandles'
+import { updateCardState } from '../utils/controlHandles'
+import Slider from './Slider'
 
 // settings to fine-tune the properties of the media card
-
-/**
- * i could create a setting to change the width and height of the media card
- * rather than relying on scale
- * 
- */
 
 function MediaControls() {
 
   const {
     activeElement,
-    setActiveElement,
     setCardState,
-  } = useContext(CardContext);
+  } = useContext(CardContext)
 
-  const { emitEvent } = useContext(SocketContext);
+  const { emitEvent } = useContext(SocketContext)
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false)
 
-  // const { addToList } = useContext(CardListContext);
-
-  useEffect(() => {
-    if (!activeElement) return;
-
-    setCardState({
-      name: activeElement.name,
-      visibility: activeElement.visibility,
-      src: activeElement.src,
-      text: activeElement.text,
-      fontSize: activeElement.fontSize,
-      posX: activeElement.posX,
-      posY: activeElement.posY,
-      width: activeElement.width,
-      height: activeElement.height,
-      rotation: activeElement.rotation,
-      opacity: activeElement.opacity,
-      zIndex: activeElement.zIndex,
-    });
-
-  }, [activeElement, setCardState]);
-
-  function editName() {
-    if (isEditing) {
-      return (
-        <input
-          type="text"
-          id="media-name-input"
-          name="name"
-          value={activeElement.name}
-          onChange={handleChange}
-          onBlur={() => setIsEditing(false)}
-          autoFocus
-        />
-      )
+  // this function handle the changes to the media card properties
+  const handleChange = useCallback((e) => {
+    if (e.target.name === "orientX" || e.target.name === "orientY") {
+      setCardState((prev) => ({...prev, [e.target.name]: e.target.checked}))
+      updateCardState(activeElement, e.target.name, e.target.checked)
     }
     else {
-      return (
-        <div className="flex-row">
-          <p id="media-name">{`${activeElement.name}`}</p>
-          <i className="fa fa-edit" id="media-name-edit" onClick={() => setIsEditing(true)} />
-        </div>
-      )
-    }
-  }
-
-  /**
-   * This function handle the changes to the media card properties
-   * 
-   * I tried doing:
-   * function handleChange(e) {
-   *   setCardState((prev) => ({...prev, [e.target.name]: e.target.value}));
-   *   setActiveElement((prev) => ({...prev, [e.target.name]: e.target.value}));
-   *   emitEvent("updateCard", activeElement);
-   * }
-   * but the active element on screen would not update
-   * this is just a bandaid fix for now until I can figure out a better
-   * solution.. or just leave it as it is..
-   */
-  function handleChange(e) {
-    setCardState((prev) => ({...prev, [e.target.name]: e.target.value}));
-
-    switch (e.target.name) {
-      case "name":
-        activeElement.name = e.target.value;
-        break;
-      case "src":
-        activeElement.src = e.target.value;
-        break;
-      case "text":
-        activeElement.text = e.target.value;
-        break;
-      case "fontSize":
-        activeElement.fontSize = e.target.value;
-        break;
-      case "posX":
-        activeElement.posX = e.target.value;
-        break;
-      case "posY":
-        activeElement.posY = e.target.value;
-        break;
-      case "rotation":
-        activeElement.rotation = e.target.value;
-        break;
-      case "width":
-        activeElement.width = e.target.value;
-        break;
-      case "height":
-        activeElement.height = e.target.value;
-        break;
-      case "orientX":
-        if (e.target.checked) {
-          activeElement.orientX = "-1";
-        }
-        else {
-          activeElement.orientX = "1";
-        }
-        break;
-      case "orientY":
-        if (e.target.checked) {
-          activeElement.orientY = "-1";
-        }
-        else {
-          activeElement.orientY = "1";
-        }
-        break;
-      case "opacity":
-        activeElement.opacity = `${parseFloat(e.target.value / 100)}`;
-        break;
-      case "zIndex":
-        activeElement.zIndex = e.target.value;
-        break;
-      default:
-        break;
+      setCardState((prev) => ({...prev, [e.target.name]: e.target.value}))
+      updateCardState(activeElement, e.target.name, e.target.value)
     }
 
-    emitEvent("updateCard", activeElement);
-  }
+    updateMediaCard(activeElement)
+    emitEvent("updateCard", activeElement)
+  }, [activeElement, setCardState, emitEvent])
 
-  function handleReset(e) {
-    setActiveElement((prev) => ({...prev,
-      isVisible: "hidden",
+  const handleReset = useCallback(() => {
+    activeElement.visibility = "hidden"
+    activeElement.posX = "400"
+    activeElement.posY = "100"
+    activeElement.width = "-1"
+    activeElement.height = "-1"
+    activeElement.rotation = "0"
+    activeElement.orientX = "1"
+    activeElement.orientY = "1"
+    activeElement.opacity = "1"
+    activeElement.zIndex = "10"
+
+    setCardState((prev) => ({...prev, 
+      visibility: "hidden",
       posX: "400",
       posY: "100",
-      rotation: "0",
       width: "-1",
       height: "-1",
+      rotation: "0",
       orientX: "1",
       orientY: "1",
-      opacity: "100",
+      opacity: "1",
       zIndex: "10",
-    }));
-  }
+    }))
+
+    updateMediaCard(activeElement)
+  }, [activeElement, setCardState])
+
 
   if (!activeElement) {
     return (
@@ -174,7 +79,21 @@ function MediaControls() {
   return (
     <div className="media-control">
       <div className="media-control-header flex-column">
-        {editName()}
+        {isEditing ?
+          <input
+            type="text"
+            id="media-name-input"
+            name="name"
+            value={activeElement.name}
+            onChange={handleChange}
+            onBlur={() => setIsEditing(false)}
+            autoFocus
+          /> :
+          <div className="flex-row">
+            <p id="media-name">{`${activeElement.name}`}</p>
+            <i className="fa fa-edit" id="media-name-edit" onClick={() => setIsEditing(true)} />
+          </div>
+        }
       </div>
 
       <div className="media-control-body flex-column">
