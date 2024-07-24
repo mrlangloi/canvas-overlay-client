@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 // stores the active card element and its properties
 
@@ -26,6 +26,28 @@ export function CardContextProvider({children}) {
     opacity: "100",
     zIndex: "0",
   });
+
+  useEffect(() => {
+    if (!activeElement) return
+
+    setCardState({
+      name: activeElement.name,
+      visibility: activeElement.visibility,
+      src: activeElement.src,
+      text: activeElement.text,
+      fontSize: activeElement.fontSize,
+      posX: activeElement.posX,
+      posY: activeElement.posY,
+      width: activeElement.width,
+      height: activeElement.height,
+      rotation: activeElement.rotation,
+      orientX: activeElement.orientX,
+      orientY: activeElement.orientY,
+      opacity: activeElement.opacity,
+      zIndex: activeElement.zIndex,
+    });
+
+  }, [activeElement, setCardState])
 
   const value = {
     activeElement,
