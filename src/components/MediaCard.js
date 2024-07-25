@@ -47,7 +47,7 @@ function MediaCard(props) {
    * to render the correct element
    */
   const videoExtensions = useMemo(() => [".mp4", ".webm", ".mov", ".avi"], []);
-  const isVideo = useMemo(() => { videoExtensions.some(ext => element.src.includes(ext)) }, [element.src, videoExtensions]);
+  const isVideo = videoExtensions.some(ext => element.src.includes(ext))
 
   const dragRef = useRef(null);
 
