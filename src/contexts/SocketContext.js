@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 export const SocketContext = createContext();
 
-const socket = io.connect('http://localhost:8080');
+const socket = io.connect("https://rkkmru.ddns.net");
 
 export function SocketContextProvider({ children }) {
 

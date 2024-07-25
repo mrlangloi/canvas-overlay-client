@@ -7,7 +7,7 @@ function TwitchEmbed() {
 
   return (
     <div id="twitch-embed" style={{ zIndex: streamZIndex, }}>
-      <iframe src="https://player.twitch.tv/?channel=dearbun&parent=localhost" 
+      <iframe src="https://player.twitch.tv/?channel=dearbun&parent=onrender.com"
         className="streamer-mode"
         frameBorder="0"
         title="Twitch Embed"
