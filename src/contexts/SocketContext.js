@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 export const SocketContext = createContext();
 
-const socket = io.connect("https://rkkmru.ddns.net");
+const socket = io.connect("https://dearbuncanvas.xyz");
 
 export function SocketContextProvider({ children }) {
 

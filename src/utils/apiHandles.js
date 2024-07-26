@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://rkkmru.ddns.net/media-cards";
+const API_URL = "https://dearbuncanvas.xyz/media-cards";
 
 // get all media cards
 export async function getMediaCards() {
