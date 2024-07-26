@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://dearbuncanvas.xyz/media-cards";
+const API_URL = `${process.env.REACT_APP_API_URL}/media-cards`;
 
 // get all media cards
 export async function getMediaCards() {
