@@ -4,6 +4,8 @@ class MediaObj {
   visibility = "hidden"; // visible or hidden
   src = "https://via.placeholder.com/128";
   text = "";
+  fontFamily = "Varela Round";
+  color = "#ffffff";
   fontSize = "16";
   posX = "400";
   posY = "100";
