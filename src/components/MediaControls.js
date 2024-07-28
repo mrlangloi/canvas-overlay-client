@@ -1,9 +1,9 @@
-import React, { useCallback, useContext, useState } from 'react'
-import { CardContext } from '../contexts/CardContext'
-import { SocketContext } from '../contexts/SocketContext'
-import { updateMediaCard } from '../utils/apiHandles'
-import { updateCardState } from '../utils/controlHandles'
-import Slider from './Slider'
+import React, { useCallback, useContext, useState } from 'react';
+import { CardContext } from '../contexts/CardContext';
+import { SocketContext } from '../contexts/SocketContext';
+import { updateMediaCard } from '../utils/apiHandles';
+import { updateCardState } from '../utils/controlHandles';
+import Slider from './Slider';
 
 // settings to fine-tune the properties of the media card
 
@@ -102,13 +102,14 @@ function MediaControls() {
           <input type="text" className="text-input" id="image-source-input" name="src" value={activeElement.src} placeholder="Insert Image URL.." onChange={handleChange} />
         </div>
 
-        <div>
+        <>
           <textarea type="text" id="inner-text-input" name="text" value={activeElement.text} placeholder="Insert Text.." onChange={handleChange} />
           <div className="flex-row">
             <p>Font Size:</p>
             <input type="number" className="number-input" name="fontSize" value={activeElement.fontSize} onChange={handleChange} />
+            <input type="color" className="color-input" name="color" value={activeElement.color} onChange={handleChange} />
           </div>
-        </div>
+        </>
 
         <div className="position flex-row">
           <p>Pos-X:</p>
