@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
 import { SocketContext } from '../contexts/SocketContext';
+import { updateMediaCard } from '../utils/apiHandles';
 
 function Layer(props) {
 
@@ -33,6 +34,7 @@ function Layer(props) {
       element.visibility = "hidden";
     }
     emitEvent('updateCard', element);
+    updateMediaCard(element);
   }
 
   // for when the cards are clicked on or dragged
