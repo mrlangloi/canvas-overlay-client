@@ -19,10 +19,15 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #36454f;
+  background-color: #1D2B53;
 }
 
 h1 {
+  margin: 1rem 0;
+  padding: 0;
+}
+
+h3 {
   margin: 0;
   padding: 0;
 }
@@ -56,8 +61,8 @@ input {
   width: 350px;
 }
 
-.absolute {
-  position: absolute;
+.fixed {
+  position: fixed;
 }
 
 .container {
@@ -79,9 +84,15 @@ input {
   scale: 1.2;
 }
 
+.controller-header {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
 .controller-body {
   position: fixed;
-  background-color: dimgray;
+  background-color: #435585;
   width: 350px;
   height: 100vh;
   display: flex;
@@ -108,7 +119,7 @@ input {
   display: flex;
   justify-content: space-between;
   padding: 0 .75vh;
-  background-color: lightsteelblue;
+  background-color: #F5E8C7;
 }
 
 .layers-header i {
@@ -127,7 +138,6 @@ input {
   justify-content: space-between;
   padding: .75vh;
   margin: 0;
-  background-color: lightsteelblue;
 }
 
 .layers-body {
@@ -141,7 +151,7 @@ input {
   display: flex;
   justify-content: space-between;
   padding: .75vh;
-  background-color: #ccc
+  background-color: #818FB4;
 }
 
 .layer:hover {
@@ -149,7 +159,7 @@ input {
 }
 
 .layer-active {
-  background-color: darkgray;
+  background-color: lightsteelblue;
 }
 
 .media-control {
@@ -200,7 +210,7 @@ input {
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 10px;
   cursor: pointer;
 }
 
