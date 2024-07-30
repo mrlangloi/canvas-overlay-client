@@ -1,11 +1,15 @@
-import React, { useContext } from 'react';
-import { CardListContext } from '../contexts/CardListContext';
-import MediaCard from './MediaCard';
-import TwitchEmbed from './TwitchEmbed';
+import React, { useContext } from 'react'
+import { CardListContext } from '../contexts/CardListContext'
+import { UserContext } from '../contexts/UserContext'
+import MediaCard from './MediaCard'
+import MouseDisplay from './MouseDisplay'
+import MouseTracker from './MouseTracker'
+import TwitchEmbed from './TwitchEmbed'
 
 function CanvasOverlay() {
 
-  const { listOfCards } = useContext(CardListContext);
+  const { listOfCards } = useContext(CardListContext)
+  const { user } = useContext(UserContext)
 
   const cards = listOfCards?.map((element, index) => {
     return (
@@ -18,10 +22,18 @@ function CanvasOverlay() {
 
   return (
     <div className="canvas-overlay">
+      {user ?
+        <>
+          <MouseDisplay />
+          <MouseTracker />
+        </>
+        : null
+      }
+
       {cards}
       <TwitchEmbed />
     </div>
   )
 }
 
-export default CanvasOverlay;
+export default CanvasOverlay
