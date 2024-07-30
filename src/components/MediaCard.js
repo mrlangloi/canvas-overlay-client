@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
 import { SocketContext } from '../contexts/SocketContext';
+import { UserContext } from '../contexts/UserContext';
 import { updateMediaCard } from '../utils/apiHandles';
 
 // every image/text/gif card on the page
@@ -14,6 +15,7 @@ function MediaCard(props) {
 
   const { element } = props;
   const { emitEvent } = useContext(SocketContext);
+  const { authorized } = useContext(UserContext)
 
 
   /**
@@ -106,10 +108,10 @@ function MediaCard(props) {
  * idk why but it works
  */
   useEffect(() => {
-    if (dragRef.current) {
+    if (authorized && dragRef.current) {
       dragElement(dragRef.current);
     }
-  }, [dragElement]);
+  }, [authorized, dragElement]);
 
 
 
