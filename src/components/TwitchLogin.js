@@ -10,10 +10,10 @@ function TwitchLogin() {
       {user ? 
         <>
           <h3>{user.display_name}</h3> 
-          <a href={`http://localhost:3500/auth/logout`}>Logout</a>
+          <a href={`${process.env.REACT_APP_API_URL}/auth/logout`}>Logout</a>
         </>
         : 
-        <a href={`http://localhost:3500/auth/twitch`}>Login with Twitch</a>
+        <a href={`${process.env.REACT_APP_API_URL}/auth/twitch`}>Login with Twitch</a>
       }
     </div>
   )

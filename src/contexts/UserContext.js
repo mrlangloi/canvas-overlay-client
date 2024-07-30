@@ -12,7 +12,7 @@ export const UserContextProvider = ({ children }) => {
 
     async function getUser() {
       try {
-        const response = await axios.get('http://localhost:3500/auth/user', { withCredentials: true })
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/user`, { withCredentials: true })
 
         console.log(response.data)
 
