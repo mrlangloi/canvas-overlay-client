@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { memo, useContext, useEffect, useRef, useState } from 'react';
 import { CardContext } from '../contexts/CardContext';
 import { SocketContext } from '../contexts/SocketContext';
 import { updateMediaCard } from '../utils/apiHandles';
@@ -60,4 +60,4 @@ function Layer(props) {
   )
 }
 
-export default Layer;
+export default memo(Layer);
