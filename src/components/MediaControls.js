@@ -64,8 +64,8 @@ function MediaControls() {
 
   if (!activeElement) {
     return (
-      <div className="media-control">
-        <div className="media-control-header flex-column">
+      <div className="media-control flex-column">
+        <div className="media-control-header">
           <p>Media Control</p>
         </div>
 

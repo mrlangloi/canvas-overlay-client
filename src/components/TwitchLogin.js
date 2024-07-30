@@ -6,7 +6,7 @@ function TwitchLogin() {
   const { user } = useContext(UserContext);
 
   return (
-    <>
+    <div className="twitch-login flex-column">
       {user ? 
         <>
           <h3>{user.display_name}</h3> 
@@ -15,7 +15,7 @@ function TwitchLogin() {
         : 
         <a href={`http://localhost:3500/auth/twitch`}>Login with Twitch</a>
       }
-    </>
+    </div>
   )
 }
 

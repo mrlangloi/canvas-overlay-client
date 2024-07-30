@@ -29,20 +29,22 @@ function Controller() {
   return (
     <div className="controller streamer-mode">
 
-      <i className={`fa fa-reorder absolute controller-icons ${isControllerOpen ? "controller-hidden" : "controller-show"}`} onClick={toggleController} />
+      <i className={`fa fa-reorder fixed controller-icons ${isControllerOpen ? "controller-hidden" : "controller-show"}`} onClick={toggleController} />
 
       <div className={`controller-body ${isControllerOpen ? "controller-show" : "controller-hidden"}`}>
 
-        <i className="fa fa-angle-double-left controller-icons" onClick={toggleController} />
-        <h1>Main Control</h1>
+        <div className="controller-header flex-row">
+          <TwitchLogin />
+          <i className="fa fa-angle-double-left controller-icons" onClick={toggleController} />
+        </div>
 
-        <TwitchLogin />
+        <h1>Main Control</h1>
 
         {user ?
 
           (authorized ?
             <>
-              <div className="flex-row">
+              <div className="stream-interact flex-row">
                 <label htmlFor="toggle-stream-interact">Stream Interact</label>
                 <input type="checkbox" id="toggle-stream-interact" checked={streamZIndex === -1 ? false : true} onChange={handleStreamInteract} />
               </div>
