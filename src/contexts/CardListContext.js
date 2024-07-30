@@ -47,10 +47,6 @@ export function CardListContextProvider({ children }) {
     });
   }, []);
 
-
-
-
-
   useEffect(() => {
     if (socket) {
       socket.on('updateCard', updateCard);
