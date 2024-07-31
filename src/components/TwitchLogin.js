@@ -5,10 +5,6 @@ function TwitchLogin() {
 
   const { user, setUser } = useContext(UserContext);
 
-  async function handleLogin(e) {
-    window.location.href = `${process.env.REACT_APP_API_URL}/auth/twitch`;
-  }
-
   return (
     <div className="twitch-login flex-column">
       {user ? 
@@ -17,7 +13,7 @@ function TwitchLogin() {
           <a href={`${process.env.REACT_APP_API_URL}/auth/logout`}>Logout</a>
         </>
         : 
-        <button className="button" id="login-button" onClick={handleLogin}>Login</button>
+        <a href={`${process.env.REACT_APP_API_URL}/auth/twitch`}>Login</a>
       }
     </div>
   )
