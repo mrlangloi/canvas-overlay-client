@@ -72,7 +72,7 @@ export function CardListContextProvider({ children }) {
         setListOfCards(cards);
         setListOfIds((prev) => {
           const updatedIds = [...prev];
-          cards.forEach((card) => {
+          cards?.forEach((card) => {
             updatedIds[card.id] = true;
           });
           return updatedIds;
