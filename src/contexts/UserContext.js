@@ -8,35 +8,39 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [authorized, setAuthorized] = useState(false)
 
+  // check for a token in the URL on render
   useEffect(() => {
+    // extract the token from the URL
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token')
 
-    async function getUser() {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/user`, { withCredentials: true })
+    if (token) {
+      // store the token in localStorage
+      localStorage.setItem('token', token)
 
-        console.log(response.data)
+      window.location.href = '/'
+    } 
+  }, [])
 
-        if (response.data) {
-          setUser(response.data)
+  // check for a token in localStorage on render
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      axios.post(`${process.env.REACT_APP_API_URL}/auth/verify`, { token })
+        .then(response => {
+          // console.log(response)
+          setUser(response.data.user)
           if (response.status === 200) {
             setAuthorized(true)
           }
           else {
             setAuthorized(false)
           }
-        }
-        else {
-          setUser(null)
-          setAuthorized(false)
-        }
-      }
-      catch (error) {
-        console.log(error)
-      }
+        })
+        .catch(error => {
+          console.error(error)
+        })
     }
-
-    getUser();
-
   }, [])
 
   return (
