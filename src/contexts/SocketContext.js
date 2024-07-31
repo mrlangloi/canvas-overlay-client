@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 
 export const SocketContext = createContext()
 
-const socket = io.connect(`${process.env.REACT_APP_API_URL}`)
+const socket = io.connect(`${process.env.REACT_APP_API_URL}`, { withCredentials: true })
 
 export function SocketContextProvider({ children }) {
 
