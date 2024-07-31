@@ -7,7 +7,7 @@ function TwitchLogin() {
   const { user, setUser } = useContext(UserContext);
 
   async function handleLogin(e) {
-    await axios.get(`${process.env.REACT_APP_API_URL}/auth/twitch`, { withCredentials: true })
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/twitch`, { withCredentials: true })
       .then(response => {
         console.log(response.data);
       })
