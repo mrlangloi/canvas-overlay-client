@@ -1,9 +1,21 @@
+import axios from 'axios';
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
 function TwitchLogin() {
 
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  async function handleLogin(e) {
+    await axios.get(`${process.env.REACT_APP_API_URL}/auth/twitch`, { withCredentials: true })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    setUser(response.data);
+  }
 
   return (
     <div className="twitch-login flex-column">
@@ -13,7 +25,7 @@ function TwitchLogin() {
           <a href={`${process.env.REACT_APP_API_URL}/auth/logout`}>Logout</a>
         </>
         : 
-        <a href={`${process.env.REACT_APP_API_URL}/auth/twitch`}>Login with Twitch</a>
+        <button className="button" id="login-button" onClick={handleLogin}>Login</button>
       }
     </div>
   )
