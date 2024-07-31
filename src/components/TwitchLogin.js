@@ -3,14 +3,21 @@ import { UserContext } from '../contexts/UserContext';
 
 function TwitchLogin() {
 
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, setAuthorized } = useContext(UserContext);
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    setUser(null);
+    setAuthorized(false);
+    window.location.reload();
+  };
 
   return (
     <div className="twitch-login flex-column">
       {user ? 
         <>
           <h3>{user.display_name}</h3> 
-          <a href={`${process.env.REACT_APP_API_URL}/auth/logout`}>Logout</a>
+          <a href="#" onClick={handleLogout}>Logout</a>
         </>
         : 
         <a href={`${process.env.REACT_APP_API_URL}/auth/twitch`}>Login</a>
