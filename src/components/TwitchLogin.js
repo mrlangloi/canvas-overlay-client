@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
@@ -7,14 +6,7 @@ function TwitchLogin() {
   const { user, setUser } = useContext(UserContext);
 
   async function handleLogin(e) {
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/twitch`)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    setUser(response.data);
+    window.location.href = `${process.env.REACT_APP_API_URL}/auth/twitch`;
   }
 
   return (
