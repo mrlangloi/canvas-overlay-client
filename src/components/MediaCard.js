@@ -15,7 +15,7 @@ function MediaCard(props) {
 
   const { element } = props;
   const { emitEvent } = useContext(SocketContext);
-  const { authorized } = useContext(UserContext)
+  const { user, authorized } = useContext(UserContext)
 
 
   /**
@@ -60,7 +60,6 @@ function MediaCard(props) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     function dragMouseDown(e) {
-      e = e || window.event;
       e.preventDefault();
       // get the mouse cursor position at startup:
       pos3 = e.clientX;
@@ -108,7 +107,7 @@ function MediaCard(props) {
  * idk why but it works
  */
   useEffect(() => {
-    if (authorized && dragRef.current) {
+    if (user && authorized && dragRef.current) {
       dragElement(dragRef.current);
     }
   }, [authorized, dragElement]);
@@ -116,12 +115,12 @@ function MediaCard(props) {
 
 
 
-  const mediaStyle = useMemo(() => ({
+  const mediaStyle = {
     transform: `scale(${element.orientX}, ${element.orientY})`,
     width: element.width === "-1" ? "auto" : `${element.width}px`,
     height: element.height === "-1" ? "auto" : `${element.height}px`,
     display: element.src === "" ? "none" : "block",
-  }), [element.orientX, element.orientY, element.width, element.height, element.src]);
+  }
 
   // obs doesn't render "rotate: element.rotate" at all
   // so I have to use transform: rotate() instead
