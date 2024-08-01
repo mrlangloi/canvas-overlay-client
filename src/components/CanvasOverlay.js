@@ -2,8 +2,6 @@ import React, { useContext } from 'react'
 import { CardListContext } from '../contexts/CardListContext'
 import { UserContext } from '../contexts/UserContext'
 import MediaCard from './MediaCard'
-import MouseDisplay from './MouseDisplay'
-import MouseTracker from './MouseTracker'
 import TwitchEmbed from './TwitchEmbed'
 
 function CanvasOverlay() {
@@ -22,13 +20,13 @@ function CanvasOverlay() {
 
   return (
     <div className="canvas-overlay">
-      {user ?
+      {/* {user ?
         <>
           <MouseDisplay />
           <MouseTracker />
         </>
         : null
-      }
+      } */}
 
       {cards}
       <TwitchEmbed />
