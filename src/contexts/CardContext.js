@@ -45,15 +45,8 @@ export function CardContextProvider({children}) {
 
   }, [activeElement, setCardState])
 
-  const value = {
-    activeElement,
-    setActiveElement,
-    cardState,
-    setCardState,
-  };
-
   return (
-    <CardContext.Provider value={value}>
+    <CardContext.Provider value={{ activeElement, setActiveElement, cardState, setCardState }}>
       {children}
     </CardContext.Provider>
   );
