@@ -10,15 +10,15 @@ import { UserContextProvider } from './UserContext';
 const CombinedProvider = ({ children }) => {
   return (
     <UserContextProvider>
-      <SocketContextProvider>
-        <CardListContextProvider>
-          <CardContextProvider>
-            <StreamContextProvider>
+      <StreamContextProvider>
+        <SocketContextProvider>
+          <CardListContextProvider>
+            <CardContextProvider>
               {children}
-            </StreamContextProvider>
-          </CardContextProvider>
-        </CardListContextProvider>
-      </SocketContextProvider>
+            </CardContextProvider>
+          </CardListContextProvider>
+        </SocketContextProvider>
+      </StreamContextProvider>
     </UserContextProvider>
   );
 }
