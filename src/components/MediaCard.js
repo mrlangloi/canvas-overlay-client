@@ -110,7 +110,7 @@ function MediaCard(props) {
     if (user && authorized && dragRef.current) {
       dragElement(dragRef.current);
     }
-  }, [authorized, dragElement]);
+  }, [user, authorized, dragElement]);
 
 
 
