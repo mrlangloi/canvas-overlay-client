@@ -8,6 +8,17 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [authorized, setAuthorized] = useState(false)
 
+  const [streamZIndex, setStreamZIndex] = useState(-1)
+
+  const values = {
+    user,
+    setUser,
+    authorized,
+    setAuthorized,
+    streamZIndex,
+    setStreamZIndex,
+  }
+
   // check for a token in the URL on render
   useEffect(() => {
     // extract the token from the URL
@@ -44,7 +55,7 @@ export const UserContextProvider = ({ children }) => {
   }, [])
 
   return (
-    <UserContext.Provider value={{ user, setUser, authorized, setAuthorized }}>
+    <UserContext.Provider value={ values }>
       {children}
     </UserContext.Provider>
   )
