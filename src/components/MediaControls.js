@@ -12,6 +12,7 @@ function MediaControls() {
   const {
     activeElement,
     setCardState,
+    setCardPosition,
   } = useContext(CardContext)
 
   const { emitEvent } = useContext(SocketContext)
@@ -33,7 +34,7 @@ function MediaControls() {
     emitEvent("updateCard", activeElement)
   }, [activeElement, setCardState, emitEvent])
 
-  const handleReset = useCallback(() => {
+  function handleReset() {
     activeElement.visibility = "hidden"
     activeElement.posX = "400"
     activeElement.posY = "100"
@@ -58,8 +59,13 @@ function MediaControls() {
       zIndex: "10",
     }))
 
+    setCardPosition((prev) => ({...prev,
+      posX: "400", 
+      posY: "100"
+    }))
+
     updateMediaCard(activeElement)
-  }, [activeElement, setCardState])
+  }
 
 
   if (!activeElement) {

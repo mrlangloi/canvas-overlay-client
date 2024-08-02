@@ -1,4 +1,5 @@
-import React, { memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { throttle } from 'lodash';
+import React, { memo, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { CardContext } from '../contexts/CardContext';
 import { SocketContext } from '../contexts/SocketContext';
 import { UserContext } from '../contexts/UserContext';
@@ -10,7 +11,7 @@ function MediaCard(props) {
 
   const { activeElement,
     setActiveElement,
-    setCardState,
+    setCardPosition,
   } = useContext(CardContext);
 
   const { element } = props;
@@ -22,23 +23,22 @@ function MediaCard(props) {
    * keeping track of the class of the card to change its appearance
    * when it is the active element or when it is hidden
    */
-  const [cardClass, setCardClass] = useState("media-card");
 
-  useEffect(() => {
+  const cardClass = useMemo(() => {
     if (activeElement && activeElement.id === element.id) {
       if (element.visibility === "hidden") {
-        setCardClass("media-card hidden-card");
+        return "media-card hidden-card";
       }
       else {
-        setCardClass("media-card active-card");
+        return "media-card active-card";
       }
     }
     else {
       if (element.visibility === "hidden") {
-        setCardClass("media-card streamer-mode");
+        return "media-card streamer-mode";
       }
       else {
-        setCardClass("media-card");
+        return "media-card";
       }
     }
   }, [element.visibility, element.id, activeElement]);
@@ -48,10 +48,15 @@ function MediaCard(props) {
    * tenor gifs are mp4 files, so we need to check if the src is a video
    * to render the correct element
    */
-  const videoExtensions = useMemo(() => [".mp4", ".webm", ".mov", ".avi"], []);
+  const videoExtensions = [".mp4", ".webm", ".mov", ".avi"]
   const isVideo = videoExtensions.some(ext => element.src.includes(ext))
 
   const dragRef = useRef(null);
+
+  // throttles the emitEvent function to prevent overloading the server
+  const throttleEmitEvent = throttle((elmnt) => {
+    emitEvent('updateCard', elmnt);
+  }, 10);
 
   // source: https://www.w3schools.com/howto/howto_js_draggable.asp
   // makes the element draggable with a few edits to the source code
@@ -78,12 +83,12 @@ function MediaCard(props) {
       pos4 = e.clientY;
       element.posY = `${elmnt.offsetTop - pos2}`;
       element.posX = `${elmnt.offsetLeft - pos1}`;
-      setCardState((prev) => ({
+      setCardPosition((prev) => ({
         ...prev,
         posX: element.posX,
         posY: element.posY
       }));
-      emitEvent('updateCard', element);
+      throttleEmitEvent(element);
     }
 
     function closeDragElement() {
@@ -95,7 +100,7 @@ function MediaCard(props) {
 
     elmnt.onmousedown = dragMouseDown;
 
-  }, [element, setCardState, emitEvent]);
+  }, [element, setCardPosition, throttleEmitEvent]);
 
 
 /**
