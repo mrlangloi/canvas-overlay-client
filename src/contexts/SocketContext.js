@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect } from 'react'
 import io from 'socket.io-client'
 
 // establishes socket connection with server
@@ -9,7 +9,6 @@ const socket = io.connect(`${process.env.REACT_APP_API_URL}`, { withCredentials:
 
 export function SocketContextProvider({ children }) {
 
-  const [positions, setPositions] = useState({})
 
   useEffect(() => {
 
@@ -17,22 +16,8 @@ export function SocketContextProvider({ children }) {
       console.log('connected to overlay server')
     })
 
-    socket.on('cursorMove', ({ id, position }) => {
-      setPositions((prevPositions) => ({ ...prevPositions, [id]: position }))
-    })
-
-    socket.on('clientDisconnected', ({ id }) => {
-      setPositions((prevPositions) => {
-        const newPositions = { ...prevPositions }
-        delete newPositions[id]
-        return newPositions
-      })
-    })
-
     return () => {
       socket.off('connect')
-      socket.off('cursorMove')
-      socket.off('clientDisconnected')
     }
   }, [])
 
@@ -41,7 +26,7 @@ export function SocketContextProvider({ children }) {
   }
 
   return (
-    <SocketContext.Provider value={{ socket, positions, emitEvent }}>
+    <SocketContext.Provider value={{ socket, emitEvent }}>
       {children}
     </SocketContext.Provider>
   )
