@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from 'react';
 import { CardContext } from '../contexts/CardContext';
-import { CardListContext } from '../contexts/CardListContext';
 import { SocketContext } from '../contexts/SocketContext';
 import MediaObj from '../models/MediaObj';
 import { createMediaCard, deleteMediaCard } from '../utils/apiHandles';
@@ -8,8 +7,14 @@ import Layer from './Layer';
 
 function Layers() {
 
-  const { listOfCards, setListOfCards, listOfIds, setListOfIds } = useContext(CardListContext)
-  const { activeElement, setActiveElement } = useContext(CardContext)
+  const { 
+    listOfCards, 
+    setListOfCards, 
+    listOfIds, 
+    setListOfIds,
+    activeElement,
+    setActiveElement,
+  } = useContext(CardContext)
   const { emitEvent } = useContext(SocketContext)
 
   async function handleCreateCard() {
@@ -59,7 +64,7 @@ function Layers() {
     }
   }
 
-  const layers = listOfCards.map((element, index) => {
+  const layers = listOfCards?.map((element, index) => {
     return (
       <Layer
         key={index}
@@ -68,14 +73,14 @@ function Layers() {
     )
   })
 
-  const cardsCount = useMemo(() => {return listOfCards.length}, [listOfCards])
+  const cardsCount = useMemo(() => {return listOfCards?.length}, [listOfCards])
 
   return (
     <div className="layers">
 
       <div className="layers-header">
         <p>Layers</p>
-        <p>{cardsCount} / 100</p>
+        <p>{cardsCount} / 50</p>
         <div className="flex-row">
           <i className="fa fa-plus" id="create-card-button" onClick={handleCreateCard} />
           <i className="fa fa-trash" id="delete-card-button" onClick={handleDelete} />

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { CardListContext } from '../contexts/CardListContext'
+import { CardContext } from '../contexts/CardContext'
 import { UserContext } from '../contexts/UserContext'
 import MediaCard from './MediaCard'
 import TwitchEmbed from './TwitchEmbed'
 
 function CanvasOverlay() {
 
-  const { listOfCards } = useContext(CardListContext)
+  const { listOfCards } = useContext(CardContext)
   const { user } = useContext(UserContext)
 
   const cards = listOfCards?.map((element, index) => {

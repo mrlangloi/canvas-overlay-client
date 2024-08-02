@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { StreamContext } from '../contexts/StreamContext';
 import { UserContext } from '../contexts/UserContext';
 import Layers from './Layers';
 import MediaControls from './MediaControls';
@@ -9,8 +8,7 @@ import TwitchLogin from './TwitchLogin';
 
 function Controller() {
 
-  const { streamZIndex, setStreamZIndex } = useContext(StreamContext)
-  const { user, authorized } = useContext(UserContext);
+  const { user, authorized, streamZIndex, setStreamZIndex } = useContext(UserContext);
   const [isControllerOpen, setIsControllerOpen] = useState(true);
 
   function toggleController() {
@@ -40,15 +38,15 @@ function Controller() {
 
         <h1>Main Control</h1>
 
+        <div className="stream-interact flex-row">
+          <label htmlFor="toggle-stream-interact">Stream Interact</label>
+          <input type="checkbox" id="toggle-stream-interact" checked={streamZIndex === -1 ? false : true} onChange={handleStreamInteract} />
+        </div>
+
         {user ?
 
           (authorized ?
             <>
-              <div className="stream-interact flex-row">
-                <label htmlFor="toggle-stream-interact">Stream Interact</label>
-                <input type="checkbox" id="toggle-stream-interact" checked={streamZIndex === -1 ? false : true} onChange={handleStreamInteract} />
-              </div>
-
               <Layers />
 
               <MediaControls />

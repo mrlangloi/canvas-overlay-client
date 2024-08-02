@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { StreamContext } from '../contexts/StreamContext';
+import { UserContext } from '../contexts/UserContext';
 
 function TwitchEmbed() {
 
-  const { streamZIndex } = useContext(StreamContext)
+  const { streamZIndex } = useContext(UserContext)
 
   return (
     <div id="twitch-embed" style={{ zIndex: streamZIndex, }}>
