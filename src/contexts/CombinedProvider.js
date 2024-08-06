@@ -7,13 +7,13 @@ import { UserContextProvider } from './UserContext';
 
 const CombinedProvider = ({ children }) => {
   return (
-    <UserContextProvider>
-      <SocketContextProvider>
+    <SocketContextProvider>
+      <UserContextProvider>
         <CardContextProvider>
           {children}
         </CardContextProvider>
-      </SocketContextProvider>
-    </UserContextProvider>
+      </UserContextProvider>
+    </SocketContextProvider>
   );
 }
 
