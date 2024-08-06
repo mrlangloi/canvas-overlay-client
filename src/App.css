@@ -227,6 +227,7 @@ input {
 .media-card img {
   display: block;
   border: none;
+  pointer-events: none;
 }
 
 #media-name-input {
@@ -263,6 +264,7 @@ input {
   font-size: 12px;
   color: white;
   z-index: 1000;
+  pointer-events: none;
 }
 
 #twitch-embed {
