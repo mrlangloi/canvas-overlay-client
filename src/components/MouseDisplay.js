@@ -1,39 +1,46 @@
-import React, { useContext, useRef } from 'react'
-import { SocketContext } from '../contexts/SocketContext'
-import { UserContext } from '../contexts/UserContext'
+import { throttle } from 'lodash';
+import React, { memo, useContext, useEffect } from 'react';
+import { SocketContext } from '../contexts/SocketContext';
 
-function MouseDisplay() {
+// displays the mouse cursor and position of other users
 
-  const { positions } = useContext(SocketContext)
-  const { user } = useContext(UserContext)
+function MouseDisplay(props) {
 
-  const mouseRef = useRef()
+  const { socket, emitEvent } = useContext(SocketContext)
+  const { user } = props
+
+  const styles = {
+    visibility: user.socketID === socket.id ? 'hidden' : 'show',
+    top: user.y,
+    left: user.x,
+  }
+
+  // throttles the emitEvent function to prevent overloading the server
+  const throttleEmitEvent = throttle((data) => {
+    emitEvent('cursorMove', { socketID: socket.id, x: data.x, y: data.y });
+  }, 17);
 
   useEffect(() => {
-    if (!user) return
+    function handleMouseMove(e) {
+      const posX = e.clientX + window.scrollX
+      const posY = e.clientY + window.scrollY
+      user.x = posX
+      user.y = posY
+      throttleEmitEvent({ x: posX, y: posY })
+    }
 
-    const mouse = mouseRef.current
-    mouse.style.display = 'none'
+    window.addEventListener('mousemove', handleMouseMove)
 
     return () => {
-      mouse.style.display = 'block'
+      window.removeEventListener('mousemove', handleMouseMove)
     }
-  })
+  }, [user, throttleEmitEvent])
 
   return (
     <>
       <i
-        key={id}
-        ref={mouseRef}
-        className='fa fa-mouse-pointer'
-        style={{
-          position: 'absolute',
-          top: pos.y,
-          left: pos.x,
-          fontSize: '12px',
-          color: 'white',
-          zIndex: 1001,
-        }}
+        className='mouseDisplay fa fa-mouse-pointer'
+        style={styles}
       >
         <p style={{ fontSize: '10px' }}>{user.display_name}</p>
       </i>
@@ -41,4 +48,4 @@ function MouseDisplay() {
   )
 }
 
-export default MouseDisplay
+export default memo(MouseDisplay)
