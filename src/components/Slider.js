@@ -1,3 +1,7 @@
+import React from 'react';
+
+// range slider component
+
 function Slider(props) {
 
   const { name, minValue, maxValue, value, handleChange } = props;
