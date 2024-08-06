@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
+import ActiveUsers from './ActiveUsers';
 import Layers from './Layers';
 import MediaControls from './MediaControls';
 import TwitchLogin from './TwitchLogin';
@@ -17,7 +18,7 @@ function Controller() {
 
   function handleStreamInteract(e) {
     if (e.target.checked) {
-      setStreamZIndex(1000);
+      setStreamZIndex(998);
     } else {
       setStreamZIndex(-1);
     }
@@ -50,6 +51,8 @@ function Controller() {
               <Layers />
 
               <MediaControls />
+
+              <ActiveUsers />
             </>
             :
             <p>User is not authorized to interact with overlay</p>
