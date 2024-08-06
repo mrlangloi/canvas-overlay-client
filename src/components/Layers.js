@@ -5,6 +5,8 @@ import MediaObj from '../models/MediaObj';
 import { createMediaCard, deleteMediaCard } from '../utils/apiHandles';
 import Layer from './Layer';
 
+// renders the list of layers on the left side of the screen
+
 function Layers() {
 
   const { 

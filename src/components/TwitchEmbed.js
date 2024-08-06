@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
+// embeds the Twitch stream
+
 function TwitchEmbed() {
 
   const { streamZIndex } = useContext(UserContext)

@@ -5,6 +5,7 @@ import MediaCard from './MediaCard'
 import MouseDisplay from './MouseDisplay'
 import TwitchEmbed from './TwitchEmbed'
 
+// where the magic happens. renders all the cards and users on the screen
 
 function CanvasOverlay() {
 

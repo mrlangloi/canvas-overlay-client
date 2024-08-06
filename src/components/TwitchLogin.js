@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
+// shows a login button if the user is not logged in, or the user's name and a logout button if they are
+
 function TwitchLogin() {
 
   const { user, setUser, setAuthorized } = useContext(UserContext);

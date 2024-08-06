@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
+// shows a list of active users in the web page
+
 function ActiveUsers() {
 
   const { listOfUsers } = useContext(UserContext)

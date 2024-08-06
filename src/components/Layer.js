@@ -3,6 +3,8 @@ import { CardContext } from '../contexts/CardContext';
 import { SocketContext } from '../contexts/SocketContext';
 import { updateMediaCard } from '../utils/apiHandles';
 
+// each individual layer in the layers panel
+
 function Layer(props) {
 
   const { activeElement, setActiveElement, setCardState } = useContext(CardContext);

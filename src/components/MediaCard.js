@@ -7,6 +7,11 @@ import { updateMediaCard } from '../utils/apiHandles';
 
 // every image/text/gif card on the page
 
+/**
+ * for the future, look into using Framer Motion or React Spring to 
+ * handle the dragging of the cards
+ */
+
 function MediaCard(props) {
 
   const { activeElement,
