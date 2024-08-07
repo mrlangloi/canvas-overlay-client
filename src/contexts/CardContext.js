@@ -10,7 +10,7 @@ export function CardContextProvider({ children }) {
 
   const { socket } = useContext(SocketContext);
 
-  const [listOfIds, setListOfIds] = useState(new Array(50).fill(false));
+  const [listOfIds, setListOfIds] = useState(new Array(100).fill(false));
   const [listOfCards, setListOfCards] = useState([]);
 
   const [activeElement, setActiveElement] = useState(null);
