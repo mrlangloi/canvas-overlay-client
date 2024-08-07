@@ -82,7 +82,7 @@ function Layers() {
 
       <div className="layers-header">
         <p>Layers</p>
-        <p>{cardsCount} / 50</p>
+        <p>{cardsCount} / 100</p>
         <div className="flex-row">
           <i className="fa fa-plus" id="create-card-button" onClick={handleCreateCard} />
           <i className="fa fa-trash" id="delete-card-button" onClick={handleDelete} />
