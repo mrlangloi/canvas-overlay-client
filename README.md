@@ -9,5 +9,7 @@ This project was created for [twitch.tv/dearbun](https://www.twitch.tv/dearbun).
 ## Libraries
 
 [Axios](https://www.npmjs.com/package/axios) - to handle API requests
+
 [Lodash](https://www.npmjs.com/package/lodash) - to throttle communication between the frontend and backend; prevents overloading
+
 [Socket.io](https://www.npmjs.com/package/socket.io) - handles the real-time communication between multiple users
