@@ -53,7 +53,7 @@ function MediaCard(props) {
    * tenor gifs are mp4 files, so we need to check if the src is a video
    * to render the correct element
    */
-  const videoExtensions = [".mp4", ".webm", ".mov", ".avi"]
+  const videoExtensions = [".mp4", ".webm", ".mov"]
   const isVideo = videoExtensions.some(ext => element.src.includes(ext))
 
   const dragRef = useRef(null);
