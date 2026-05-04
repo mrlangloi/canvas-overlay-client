@@ -25,6 +25,9 @@ export const UserContextProvider = ({ children }) => {
     setStreamZIndex,
   }
 
+  const env = process.env;
+  const API_URL = env.REACT_APP_ENV === 'production' ? env.REACT_APP_API_URL : env.REACT_APP_API_URL2;
+
   // check for a token in the URL on render
   useEffect(() => {
     // extract the token from the URL
@@ -43,7 +46,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
-      axios.post(`${process.env.REACT_APP_API_URL}/auth/verify`, { token })
+      axios.post(`${API_URL}/auth/verify`, { token })
         .then(response => {
           // console.log(response)
           setUser(response.data.user)

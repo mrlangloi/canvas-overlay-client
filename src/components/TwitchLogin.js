@@ -7,6 +7,9 @@ function TwitchLogin() {
 
   const { user, setUser, setAuthorized } = useContext(UserContext);
 
+  const env = process.env;
+  const API_URL = env.REACT_APP_ENV === 'production' ? env.REACT_APP_API_URL : env.REACT_APP_API_URL2;
+
   function handleLogout() {
     localStorage.removeItem('token');
     setUser(null);
@@ -22,7 +25,7 @@ function TwitchLogin() {
           <a href="#" onClick={handleLogout}>Logout</a>
         </>
         : 
-        <a href={`${process.env.REACT_APP_API_URL}/auth/twitch`}>Login</a>
+        <a href={`${API_URL}/auth/twitch`}>Login</a>
       }
     </div>
   )
